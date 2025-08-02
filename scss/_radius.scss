@@ -1,0 +1,23 @@
+@use 'sass:meta';
+
+@mixin radius($numbers) {
+  @if meta.type-of($numbers) != list {
+    @error "#{$numbers }는 리스트형 데이터여야 합니다.";
+  }
+
+  @each $number in $numbers {
+    .rounded- {
+      &#{$number} {
+        border-radius: #{$number}px;
+      }
+    }
+  }
+  .rounded-full {
+    border-radius: calc(infinity * 1rem);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Radius                                   */
+/* -------------------------------------------------------------------------- */
+@include radius((2, 4, 5, 6));

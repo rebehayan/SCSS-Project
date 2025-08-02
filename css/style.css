@@ -1,0 +1,1092 @@
+@charset "UTF-8";
+@layer reset, print, atom, molecules, organisms, template, page, utillity;
+/* 기초정의 */
+@layer reset {
+  /* -------------------------------------------------------------------------- */
+  /*                                    Reset                                   */
+  /* -------------------------------------------------------------------------- */
+  :where(h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  div,
+  p,
+  blockquote,
+  pre,
+  code,
+  address,
+  ul,
+  ol,
+  li,
+  nav,
+  section,
+  article,
+  header,
+  footer,
+  main,
+  aside,
+  dl,
+  dt,
+  dd,
+  table,
+  thead,
+  tbody,
+  tfoot,
+  label,
+  caption,
+  th,
+  td,
+  form,
+  fieldset,
+  legend,
+  hr,
+  input,
+  button,
+  textarea,
+  object,
+  figure,
+  figcaption,
+  span,
+  em,
+  strong,
+  i,
+  b,
+  u,
+  ins,
+  dialog) {
+    margin: 0;
+    padding: 0;
+    /* font-family: "Noto Sans KR", sans-serif; */
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  }
+  :where(body, input, select, textarea, button, img, fieldset) {
+    border: none;
+  }
+  :where(ul, ol, li, summary) {
+    list-style: none;
+  }
+  :where(table) {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  :where(address, cite, code, em, i) {
+    font-style: normal;
+    font-weight: normal;
+  }
+  :where(u, ins, a) {
+    text-decoration: none;
+  }
+  :where(button) {
+    background-color: unset;
+  }
+  :where(a) {
+    color: inherit;
+  }
+  :where(button, label, select, summary, [role=button], [role=option]) {
+    cursor: pointer;
+  }
+  :where(:disabled, :disabled + label) {
+    cursor: not-allowed;
+  }
+  :where(input, button, textarea, select) {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    word-spacing: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+  }
+  /* -------------------------------------------------------------------------- */
+  /*                                  Normalize                                 */
+  /* -------------------------------------------------------------------------- */
+  :where(input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button) {
+    -webkit-appearance: none;
+  }
+  :where(input[type=number]) {
+    -moz-appearance: textfield;
+  }
+  :where(input[type=number],
+  input[type=text],
+  input[type=password],
+  input[type=url],
+  input[type=email],
+  input[type=tel],
+  input[type=date],
+  textarea) {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  :where(input[type=search]::-webkit-search-decoration,
+  input[type=search]::-webkit-search-cancel-button,
+  input[type=search]::-webkit-search-results-button,
+  input[type=search]::-webkit-search-results-decoration) {
+    -webkit-appearance: none;
+  }
+  :where(input[type=date]) {
+    position: relative;
+  }
+  :where(input[type=date]::-webkit-clear-button, input[type=date]::-webkit-inner-spin-button) {
+    display: none;
+  }
+  :where(input[type=date]::-webkit-calendar-picker-indicator) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  :where(input[type=date]::before) {
+    content: attr(data-placeholder);
+    width: 100%;
+  }
+  :where(input[type=date]:valid::before) {
+    display: none;
+  }
+  :where(select) {
+    appearance: none;
+  }
+  :where(html) {
+    padding: 0;
+    margin: 0;
+    font-size: 62.5%;
+    -webkit-text-size-adjust: none;
+  }
+  :where(body) {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+  }
+  :where(caption, legend, .a11y-hidden) {
+    overflow: hidden;
+    position: absolute;
+    border: 0;
+    width: 1px;
+    height: 1px;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+  :where(summary::-webkit-details-marker) {
+    display: none;
+  }
+  :where(dialog, [popover]) {
+    width: auto;
+    height: auto;
+    border: none;
+  }
+}
+@layer print {
+  @media print {
+    .header,
+    .footer,
+    .visual {
+      display: none;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+  }
+  @page {
+    margin: 1cm 2cm;
+  }
+  .print {
+    display: block;
+  }
+  @media screen {
+    .print {
+      display: none;
+    }
+  }
+}
+@layer debug {
+  /* 유틸리티 클래스 단독사용 방지용 */
+  [class]:not([class*=" "]).xxxs::after, [class]:not([class*=" "]).xxs::after, [class]:not([class*=" "]).xs::after, [class]:not([class*=" "]).sm::after, [class]:not([class*=" "]).base::after, [class]:not([class*=" "]).md::after, [class]:not([class*=" "]).lg::after, [class]:not([class*=" "]).xl::after, [class]:not([class*=" "]).xxl::after, [class]:not([class*=" "]).xxxl::after {
+    content: attr(class) "(은)는 단독으로 사용할 수 없습니다.";
+    display: block;
+    color: tomato;
+  }
+  /* 영역 확인용 */
+  .debug * {
+    outline: 2px solid red !important;
+  }
+  .debug * * {
+    outline: 2px solid seagreen !important;
+  }
+  .debug * * * {
+    outline: 2px solid slateblue !important;
+  }
+  .debug * * * * {
+    outline: 2px solid orange !important;
+  }
+  .debug * * * * * {
+    outline: 2px solid salmon !important;
+  }
+  .debug2 * {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+  }
+  /* 대체텍스트 점검 */
+  .alt *:has(img:not([alt]))::after, .alt *:has(img[alt=""])::after {
+    content: "대체텍스트를 넣어주세요";
+    position: absolute;
+    left: 0;
+    top: -1.5rem;
+    white-space: nowrap;
+    font-size: 1.2rem;
+    color: red;
+    background-color: var(--white);
+  }
+}
+/* 원자 */
+@layer atom.variable {
+  /* -------------------------------------------------------------------------- */
+  /*                                    전역CSS                                 */
+  /* -------------------------------------------------------------------------- */
+  :root {
+    --white: #ffffff;
+    --black: #000;
+    --gray900: #2d2d2d;
+    --gray800: #555555;
+    --gray700: #717171;
+    --gray600: #8e8e8e;
+    --gray500: #c6c6c6;
+    --gray400: #d8d8d8;
+    --gray300: #e4e4e4;
+    --gray200: #f0f0f0;
+    --gray100: #f8f8f8;
+    --red900: #2e0507;
+    --red800: #5c0a0f;
+    --red700: #8b0e16;
+    --red600: #b9131e;
+    --red500: #e71825;
+    --red400: #ec4651;
+    --red300: #f1747c;
+    --red200: #f5a3a8;
+    --red100: #fbd6d8;
+    --yellow900: #4d370b;
+    --yellow800: #66490e;
+    --yellow700: #98690a;
+    --yellow600: #ffb724;
+    --yellow500: #ffc550;
+    --yellow400: #ffd47c;
+    --yellow300: #ffe2a7;
+    --yellow200: #ffeac1;
+    --yellow100: #fff8e9;
+    --green900: #00370c;
+    --green800: #005312;
+    --green700: #006e18;
+    --green600: #008a1e;
+    --green500: #33a14b;
+    --green400: #8cca99;
+    --green300: #b2dcbb;
+    --green200: #cee9d4;
+    --green100: #eef7f0;
+    --blue900: #07152f;
+    --blue800: #0e2b5e;
+    --blue700: #16408d;
+    --blue600: #1d56bc;
+    --blue500: #246beb;
+    --blue400: #5089ef;
+    --blue300: #7ca6f3;
+    --blue200: #a7c4f7;
+    --blue100: #d3e1fb;
+    --primary: var(--blue600);
+    --secondary: var(--gray600);
+    --danger: var(--red600);
+    --success: var(--green600);
+    --font-xs: 1.2rem;
+    --font-sm: 1.4rem;
+    --font-base: 1.6rem;
+    --font-md: 1.8rem;
+    --font-lg: 2rem;
+    --font-xl: 2.2rem;
+    --lh-sm: 1.2;
+    --lh-base: 1.5;
+    --lh-md: 1.8;
+    --ls-sm: -0.02rem;
+    --ls-base: 0;
+    --ls-md: 0.01rem;
+  }
+}
+@layer utillity {
+  /* -------------------------------------------------------------------------- */
+  /*                                    Align                                   */
+  /* -------------------------------------------------------------------------- */
+  .align {
+    display: flex;
+  }
+  .align.right {
+    justify-content: flex-end;
+  }
+  .align.center {
+    justify-content: center;
+  }
+  .align.both {
+    justify-content: space-between;
+  }
+  .align.triple {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+  }
+  .align.triple > :nth-child(1) {
+    justify-self: start;
+  }
+  .align.triple > :nth-child(2) {
+    justify-self: center;
+  }
+  .align.triple > :nth-child(3) {
+    justify-self: end;
+  }
+  .align.vt {
+    align-items: flex-start;
+  }
+  .align.vm {
+    align-items: center;
+  }
+  .align.vb {
+    align-items: flex-end;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-right {
+    text-align: right;
+  }
+  /* -------------------------------------------------------------------------- */
+  /*                                 Text Color                                 */
+  /* -------------------------------------------------------------------------- */
+  .text-primary {
+    color: var(--primary, #000);
+  }
+  .text-secondary {
+    color: var(--secondary, #000);
+  }
+  .text-danger {
+    color: var(--danger, #000);
+  }
+  .text-success {
+    color: var(--success, #000);
+  }
+  /* -------------------------------------------------------------------------- */
+  /*                                   Rounded                                  */
+  /* -------------------------------------------------------------------------- */
+  .rounded-base {
+    border-radius: 0.8rem;
+  }
+  .rounded-full {
+    border-radius: 100rem;
+  }
+}
+@layer utillity.spacing {
+  /* -------------------------------------------------------------------------- */
+  /*                                   Spacing                                  */
+  /* -------------------------------------------------------------------------- */
+  .mt2 {
+    margin-top: 0.2rem;
+  }
+  .mt4 {
+    margin-top: 0.4rem;
+  }
+}
+/* -------------------------------------------------------------------------- */
+/*                                   Radius                                   */
+/* -------------------------------------------------------------------------- */
+.rounded-2 {
+  border-radius: 2px;
+}
+
+.rounded-4 {
+  border-radius: 4px;
+}
+
+.rounded-5 {
+  border-radius: 5px;
+}
+
+.rounded-6 {
+  border-radius: 6px;
+}
+
+.rounded-full {
+  border-radius: calc(infinity * 1rem);
+}
+
+@layer atom.typography {
+  body {
+    background-color: var(--white);
+    font-size: var(--fs, var(--font-base));
+    color: var(--gray900);
+  }
+  .text-xs {
+    color: var(--color, var(--gray900));
+    font-size: var(--fs, var(--font-xs));
+    line-height: var(--lh, var(--lh-xs));
+    letter-spacing: var(--ls, var(--ls-xs));
+    font-weight: var(--fw, 400);
+  }
+  .text-sm {
+    color: var(--color, var(--gray900));
+    font-size: var(--fs, var(--font-sm));
+    line-height: var(--lh, var(--lh-sm));
+    letter-spacing: var(--ls, var(--ls-sm));
+    font-weight: var(--fw, 400);
+  }
+  .text-base {
+    color: var(--color, var(--gray900));
+    font-size: var(--fs, var(--font-base));
+    line-height: var(--lh, var(--lh-base));
+    letter-spacing: var(--ls, var(--ls-base));
+    font-weight: var(--fw, 400);
+  }
+  .text-md {
+    color: var(--color, var(--gray900));
+    font-size: var(--fs, var(--font-md));
+    line-height: var(--lh, var(--lh-md));
+    letter-spacing: var(--ls, var(--ls-md));
+    font-weight: var(--fw, 400);
+  }
+  .text-lg {
+    color: var(--color, var(--gray900));
+    font-size: var(--fs, var(--font-lg));
+    line-height: var(--lh, var(--lh-lg));
+    letter-spacing: var(--ls, var(--ls-lg));
+    font-weight: var(--fw, 400);
+  }
+  .text-xl {
+    color: var(--color, var(--gray900));
+    font-size: var(--fs, var(--font-xl));
+    line-height: var(--lh, var(--lh-xl));
+    letter-spacing: var(--ls, var(--ls-xl));
+    font-weight: var(--fw, 400);
+  }
+  strong[class*=text-],
+  b[class*=text-] {
+    font-weight: var(--fw, 700);
+  }
+  .link {
+    text-decoration: underline 2px;
+    text-decoration-color: red;
+    text-underline-offset: 3px;
+  }
+}
+/* 분자 */
+@layer atom.button {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    /* -------------------------------------------------------------------------- */
+    /*                                    크기정의                                  */
+    /* -------------------------------------------------------------------------- */
+    /* -------------------------------------------------------------------------- */
+    /*                                    색상정의                                  */
+    /* -------------------------------------------------------------------------- */
+    /* -------------------------------------------------------------------------- */
+    /*                                    아이콘정의                                */
+    /* -------------------------------------------------------------------------- */
+  }
+  .btn.base {
+    --px: 1rem;
+    --py: 1rem;
+    /* --fs:1.2rem; */
+    padding-inline: var(--px);
+    padding-block: var(--py);
+    font-size: var(--fs, var(--font-base));
+  }
+  .btn.md {
+    --px: 1.2rem;
+    --py: 1.2rem;
+    /* --fs:1.2rem; */
+    padding-inline: var(--px);
+    padding-block: var(--py);
+    font-size: var(--fs, var(--font-base));
+  }
+  .btn.primary {
+    color: var(--white);
+    background-color: var(--primary);
+  }
+  .btn.secondary {
+    color: var(----gray500);
+    background-color: var(--white);
+    border: 1px solid var(--gray500);
+  }
+  .btn:disabled {
+    opacity: 0.2;
+  }
+  .btn[class*=ico]::after {
+    content: "";
+    width: var(--width);
+    aspect-ratio: 1;
+    background: var(--bg) no-repeat center/contain;
+  }
+  .btn.ico1 {
+    --width: 2rem;
+    --bg: url("../images/ico1.svg");
+  }
+  .btn.ico2 {
+    --width: 2rem;
+    --bg: url("../images/ico2.svg");
+  }
+  /* -------------------------------------------------------------------------- */
+  /*                                    아이콘전용                                */
+  /* -------------------------------------------------------------------------- */
+  .ico-button {
+    --size: var(--icon-size, 3rem);
+    --rounded: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--size);
+    aspect-ratio: 1;
+    border-radius: var(--rounded, 0);
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    /* 아이콘 유효성 검사 */
+    /* 아이콘 크기 정의 */
+  }
+  .ico-button:has(svg:not(svg[aria-hidden=true]))::after {
+    content: "svg에 aria-hidden을 정의하세요";
+    position: absolute;
+    left: 0;
+    top: -1.5rem;
+    white-space: nowrap;
+    font-size: 1.2rem;
+    color: red;
+    background-color: var(--white);
+  }
+  .ico-button:not([aria-label])::after {
+    content: "button에 aria-label에 대체텍스트를 넣어주세요";
+    position: absolute;
+    left: 0;
+    top: -1.5rem;
+    white-space: nowrap;
+    font-size: 1.2rem;
+    color: red;
+    background-color: var(--white);
+  }
+  .ico-button.xs {
+    --icon-size: 1.5rem;
+  }
+  .ico-button.sm {
+    --icon-size: 1.6rem;
+  }
+  .ico-button.base {
+    --icon-size: 2rem;
+  }
+  .ico-button.md {
+    --icon-size: 2.5rem;
+  }
+  .ico-button.lg {
+    --icon-size: 2.8rem;
+  }
+}
+@layer atom.badge {
+  .badge {
+    --paddingX: 1rem;
+    --paddingY: 1rem;
+    --fontSize: 1.2rem;
+    --radius: 1rem;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    padding-inline: var(--paddingX);
+    padding-block: var(--paddingY);
+    font-size: var(--fontSize, var(--font-base));
+    border-radius: var(--radius);
+    /* -------------------------------------------------------------------------- */
+    /*                                    색상정의                                  */
+    /* -------------------------------------------------------------------------- */
+  }
+  .badge.blue {
+    color: var(--white);
+    background-color: var(--blue600);
+  }
+  .badge.orange {
+    color: var(--white);
+    background-color: var(--red500);
+  }
+}
+@layer molecules.textfield {
+  .text-field {
+    --paddingX: 1rem;
+    --width: auto;
+    --height: 4rem;
+    --borderColor: var(--gray500);
+    --rounded: 0.4rem;
+    --fontSize: 1.4rem;
+    --color: var(--gray700);
+    --placeholderColor: var(--gray500);
+    --disabled: 0.4;
+    --hoverBorderColor: var(--gray800);
+    --focusBorderColor: var(--gray800);
+    padding-inline: var(--paddingX);
+    padding-block: var(--paddingY, 0);
+    width: var(--width);
+    height: var(--height);
+    border: 1px solid var(--borderColor);
+    border-radius: var(--rounded);
+    box-sizing: border-box;
+    color: var(--color);
+    font-size: var(--fontSize);
+  }
+  .text-field::placeholder {
+    color: var(--placeholderColor);
+  }
+  .text-field:hover {
+    border-color: var(--hoverBorderColor);
+  }
+  .text-field:focus {
+    border-color: var(--focusBorderColor);
+    outline: none;
+  }
+  .text-field:disabled {
+    opacity: var(--disabled);
+  }
+  .text-field.error {
+    border: 1px solid var(--danger);
+    color: var(--danger);
+  }
+  textarea.text-field {
+    --width: 100%;
+    --height: 10rem;
+    --paddingY: 1rem;
+  }
+}
+@layer molecules.radio {
+  .radio {
+    --offImage: url(../images/ico_radio_off.svg);
+    --onImage: url(../images/ico_radio_on.svg);
+    --fontSize: 19px;
+    --offColor: gray;
+    --onColor: tomato;
+    --pl: 32px;
+    --height: 24px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .radio input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+  .radio input:checked + label {
+    color: var(--onColor);
+    background: var(--onImage) no-repeat left;
+  }
+  .radio input:focus + label {
+    outline: 2px solid #000;
+    border-radius: 2px;
+  }
+  .radio label {
+    padding-left: var(--pl);
+    background: var(--offImage) no-repeat left;
+    font-size: var(--fontSize);
+    color: var(--offColor);
+    height: var(--height);
+    align-content: center;
+  }
+  .radio:has(label:empty) {
+    --pl: 24px;
+  }
+}
+@layer molecules.checkbox {
+  .checkbox {
+    --offImage: url(../images/ico_check_off.svg);
+    --onImage: url(../images/ico_check_on.svg);
+    --fontSize: 15px;
+    --offColor: gray;
+    --onColor: blue;
+    --pl: 3rem;
+    --height: 24px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .checkbox input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+  .checkbox input:checked + label {
+    color: var(--onColor);
+    background: var(--onImage) no-repeat left;
+  }
+  .checkbox input:focus + label {
+    outline: 2px solid #000;
+    border-radius: 2px;
+  }
+  .checkbox input:disabled + label {
+    opacity: 0.2;
+  }
+  .checkbox label {
+    padding-left: var(--pl);
+    background: var(--offImage) no-repeat left;
+    font-size: var(--fontSize);
+    color: var(--offColor);
+    height: var(--height);
+    align-content: center;
+  }
+  .checkbox:has(label:empty) {
+    --pl: 24px;
+  }
+}
+@layer molecules.select {
+  .select {
+    --height: 40px;
+    --pl: 16px;
+    --pr: 44px;
+    --rounded: 8px;
+    --borderColor: silver;
+    --arrowImage: url(../images/ico_select.svg);
+    --bgColor: #fff;
+    --fontSize: 19px;
+    --fontColor: #1d1d1d;
+    height: var(--height);
+    padding-inline: var(--pl) var(--pr);
+    border-radius: var(--rounded);
+    border: 1px solid var(--borderColor);
+    background: var(--arrowImage) no-repeat right var(--pl) center var(--bgColor);
+    color: var(--fontColor);
+    font-size: var(--fontSize);
+    appearance: none;
+  }
+}
+@layer molecules.switch {
+  .switch {
+    --width: 100px;
+    --height: 40px;
+    --padding: 2px;
+    --borderColor: gray;
+    --offColor: silver;
+    --offBgColor: rgba(0, 0, 0, 0.05);
+    --onColor: lightgreen;
+    --onBgColor: green;
+    --textColor: #000;
+  }
+  .switch input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+  .switch input:checked + label {
+    background-color: var(--onBgColor);
+    justify-content: start;
+  }
+  .switch input:checked + label::before {
+    left: 100%;
+    translate: calc(-100% - 2px) -50%;
+    background-color: var(--onColor);
+  }
+  .switch input:checked + label::after {
+    content: attr(data-on);
+  }
+  .switch input:focus + label {
+    outline: 2px solid #000;
+  }
+  .switch label {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    border-radius: var(--width);
+    width: var(--width);
+    height: var(--height);
+    padding: var(--padding) calc(var(--padding) * 4);
+    border: 1px solid var(--borderColor);
+    align-items: center;
+    justify-content: end;
+    transition: 0.4s;
+    background-color: var(--offBgColor);
+    box-sizing: border-box;
+  }
+  .switch label::before {
+    --left: var(--padding);
+    --cricle: calc(var(--height) - (var(--left) * 3));
+    content: "";
+    position: absolute;
+    left: var(--left);
+    top: 50%;
+    translate: 0 -50%;
+    width: var(--cricle);
+    height: var(--cricle);
+    border-radius: 100%;
+    background-color: var(--offColor);
+    transition: 0.4s;
+  }
+  .switch label::after {
+    content: attr(data-off);
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1;
+    transition: 0.4s;
+    color: var(--textColor);
+  }
+}
+@layer molecules.chip {
+  .chip {
+    --borderOnColor: #000;
+    --borderOffColor: #000;
+    --fontOnColor: #fff;
+    --fontOffColor: #000;
+    --bgOnColor: #000;
+    --bgOffColor: #fff;
+    --px: 10px;
+    --py: 4px;
+    --fontSize: 16px;
+    --rounded: 100px;
+    --gap: 5px;
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+  }
+  .chip input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .chip input:checked + label {
+    border-color: var(--borderOnColor);
+    background-color: var(--bgOnColor);
+    color: var(--fontOnColor);
+  }
+  .chip input:focus + label {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }
+  .chip label {
+    padding: var(--py) var(--px);
+    border: 1px solid var(--borderOffColor);
+    background-color: var(--bgOffColor);
+    border-radius: var(--rounded);
+    font-size: var(--fontSize);
+    color: var(--fontOffColor);
+  }
+}
+@layer molecules.floatingLabel {
+  .floating-label {
+    position: relative;
+    font-size: 16px;
+  }
+  .floating-label input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gray700);
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  .floating-label label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    transition: 0.3s ease-out;
+    color: var(--gray600);
+    background-color: white;
+  }
+  .floating-label input:focus + label,
+  .floating-label input:not(:placeholder-shown) + label {
+    top: -10px;
+    font-size: 12px;
+    color: var(--blue400);
+    padding: 4px 10px;
+  }
+}
+@layer molecules.date {
+  input[type=date] {
+    --bg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>');
+    --paddingRight: 1.5rem;
+    --paddingLeft: 0.5rem;
+    --height: 4rem;
+    --rounded: 0.3rem;
+    --borderColor: var(--gray400);
+    position: relative;
+    padding-inline: var(--paddingLeft) var(--paddingRight);
+    border: 1px solid var(--borderColor);
+    height: var(--height);
+    border-radius: var(--rounded);
+  }
+  input[type=date]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset: 0;
+    background: none;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  input[type=date]::after {
+    content: attr(data-placeholder);
+    position: absolute;
+    left: var(--paddingLeft);
+    top: 50%;
+    translate: 0 -50%;
+  }
+  input[type=date]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: no-repeat right 0.2rem center/2.5rem auto #fff;
+    background-image: var(--bg);
+  }
+  input[type=date]:valid::after {
+    display: none;
+  }
+  input[type=date]:valid::before {
+    background-color: transparent;
+  }
+}
+@layer molecules.pipe {
+  .pipe-type1 {
+    --width: 1px;
+    --height: 10px;
+    --marginX: 1rem;
+    --bg: var(--gray600);
+  }
+  [class*=pipe-] {
+    display: inline-flex;
+    align-items: center;
+  }
+  [class*=pipe-] > * {
+    display: flex;
+    align-items: center;
+  }
+  [class*=pipe-] > * + *::before {
+    content: "";
+    width: var(--width);
+    height: var(--height);
+    margin-inline: var(--marginX);
+    background: var(--bg);
+  }
+}
+.gnb.type1 {
+  display: flex;
+  gap: 30px;
+}
+.gnb.type1 .depth {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 0.5s;
+  position: absolute;
+}
+.gnb.type1 .depth > ul {
+  overflow: hidden;
+}
+.gnb.type1 .depth a {
+  white-space: nowrap;
+}
+.gnb.type1 > li:has(a:focus) .depth, .gnb.type1 > li:hover .depth {
+  grid-template-rows: 1fr;
+}
+.gnb.type1 .depth:has(a:focus) {
+  grid-template-rows: 1fr;
+}
+.gnb.type2 {
+  display: flex;
+  gap: 30px;
+}
+.gnb.type2 .depth {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 0.5s;
+  position: absolute;
+}
+.gnb.type2 .depth > ul {
+  overflow: hidden;
+}
+.gnb.type2 .depth a {
+  white-space: nowrap;
+}
+.gnb.type2:has(a:focus) .depth, .gnb.type2:hover .depth {
+  grid-template-rows: 1fr;
+}
+.gnb.type3 {
+  display: flex;
+  anchor-name: --gnb;
+  gap: 30px;
+}
+.gnb.type3 .depth {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 0.5s;
+  position: absolute;
+}
+.gnb.type3 .depth > ul {
+  overflow: hidden;
+}
+.gnb.type3 .depth a {
+  white-space: nowrap;
+}
+.gnb.type3:has(a:focus) .depth, .gnb.type3:hover .depth {
+  grid-template-rows: 1fr;
+}
+.gnb.type3 .depth > ul {
+  anchor-name: --depth;
+}
+.gnb.type3::after {
+  content: "";
+  height: anchor-size(--depth);
+  position: absolute;
+  z-index: -1;
+  inset: anchor(--gnb bottom) 0 auto 0;
+  background-color: var(--bgColor, rgba(0, 0, 0, 0.07));
+}
+
+.snb {
+  interpolate-size: allow-keywords;
+}
+.snb details::details-content {
+  overflow: hidden;
+  block-size: 0;
+  transition: block-size 0.5s, content-visibility 0.5s;
+  transition-behavior: allow-discrete;
+}
+.snb details[open]::details-content {
+  block-size: auto;
+}
+.snb details summary {
+  list-style: none;
+}
+
+/* 유기체 */
+@layer organisms.table {
+  .table-type1 th,
+  .table-type1 td {
+    border: 1px solid var(--gray400);
+  }
+  .table-type2 th,
+  .table-type2 td {
+    border: 1px solid var(--gray400);
+  }
+}
+[popovertarget=popup] {
+  anchor-name: --popup;
+}
+
+#popup {
+  inset: auto auto anchor(--popup top) anchor(--popup 50%);
+  translate: -50%;
+  translate: -50% -1rem;
+}
+
+/* 템플릿 및 페이지 */
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,41 @@
+@mixin popover($id, $direction, $distance: 0) {
+  [popovertarget='#{$id}'] {
+    anchor-name: --#{$id};
+  }
+  ##{$id} {
+    @if $direction == 'lt' or $direction == 'lefttop' {
+      inset: auto auto anchor(--#{$id} top) anchor(--#{$id} left);
+      @if $distance {
+        translate: 0 calc($distance * -1);
+      }
+    } @else if $direction == 'rt' or $direction == 'righttop' {
+      inset: auto anchor(--#{$id} right) anchor(--#{$id} top) auto;
+      @if $distance {
+        translate: 0 calc($distance * -1);
+      }
+    } @else if $direction == 'lb' or $direction == 'leftbottom' {
+      inset: anchor(--#{$id} bottom) auto auto anchor(--#{$id} left);
+      @if $distance {
+        translate: 0 $distance;
+      }
+    } @else if $direction == 'rb' or $direction == 'rightbottom' {
+      inset: anchor(--#{$id} bottom) anchor(--#{$id} right) auto auto;
+      @if $distance {
+        translate: 0 $distance;
+      }
+    } @else if $direction == 'tc' or $direction == 'topcenter' {
+      inset: auto auto anchor(--#{$id} top) anchor(--#{$id} 50%);
+      translate: -50%;
+      @if $distance {
+        translate: -50% calc($distance * -1);
+      }
+    } @else if $direction == 'bc' or $direction == 'bottomcenter' {
+      inset: anchor(--#{$id} bottom) auto auto anchor(--#{$id} 50%);
+      @if $distance {
+        translate: -50% $distance;
+      }
+    }
+  }
+}
+
+@include popover('popup', 'tc', 1rem);

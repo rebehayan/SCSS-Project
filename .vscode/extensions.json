@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "figma.figma-vscode-extension",
+    "naumovs.color-highlight",
+    "ritwickdey.liveserver",
+    "sculove.translator",
+    "celianriboulet.webvalidator",
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-rename-tag",
+    "kisstkondoros.vscode-gutter-preview",
+    "miladfathy.scss-snippet",
+    "glenn2223.live-sass",
+    "vunguyentuan.vscode-css-variables",
+    "mrmlnc.vscode-scss"
+  ]
+}
