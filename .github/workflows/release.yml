@@ -1,0 +1,28 @@
+name: Prepare Release Branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create release branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout release || git checkout -b release
+          git merge origin/main --no-edit
+          rm -rf scss css
+          git rm -r --cached scss css || true
+          git add .
+          git commit -m "Prepare release branch without scss and css" || echo "No changes to commit"
+          git push origin release
