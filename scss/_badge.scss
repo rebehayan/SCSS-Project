@@ -1,7 +1,39 @@
+@use 'sass:meta';
+@use 'sass:list';
+@use 'sass:string';
+
+@function get-value($props, $key) {
+  $index: list.index($props, $key);
+  @if $index != null {
+    $value: list.nth($props, $index + 1);
+    @return if(meta.type-of($value) != string, $value, string.unquote($value));
+  } @else {
+    @return null;
+  }
+}
+
+@mixin set-key-value($props, $prop, $types) {
+  @each $key in $types {
+    #{$prop}: get-value($props, $key);
+  }
+}
+
+@mixin font($props) {
+  @if meta.type-of($props) != list {
+    @error "$props #{$props} 타입은 list만 허용합니다.";
+  }
+  @include set-key-value($props, font-weight, w fw weight);
+  @include set-key-value($props, font-style, s ft style);
+  @include set-key-value($props, font-size, z fs size);
+  @include set-key-value($props, line-height, l lh height);
+  @include set-key-value($props, font-family, f ff family);
+  @include set-key-value($props, color, c color);
+}
+
 @layer atom.badge {
   .badge {
     --paddingX: 1rem;
-    --paddingY: 1rem;
+    --height: 1rem;
     --fontSize: 1.2rem;
     --radius: 1rem;
 
@@ -11,7 +43,7 @@
     text-align: center;
     justify-content: center;
     padding-inline: var(--paddingX);
-    padding-block: var(--paddingY);
+    height: var(--height);
     font-size: var(--fontSize, var(--font-base));
     border-radius: var(--radius);
 
