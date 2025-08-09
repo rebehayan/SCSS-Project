@@ -13,19 +13,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main branch
+      - name: Checkout main with full history
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Create release branch
+      - name: Prepare release branch from main (remove scss & css)
         run: |
+          set -e
+
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout release || git checkout -b release
-          git merge origin/main --no-edit
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # 최신 원격 정보
+          git fetch origin
+
+          # main 기준으로 release 브랜치 재생성/리셋
+          git checkout -B release origin/main
+
+          # 산출물 제외
           rm -rf scss css
-          git rm -r --cached scss css || true
-          git add .
-          git commit -m "Prepare release branch without scss and css" || echo "No changes to commit"
-          git push origin release
+
+          # 삭제된 파일 스테이징
+          git add -A
+
+          # 변경이 있을 때만 커밋
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(release): prepare release branch without scss and css"
+          fi
+
+          # 안전한 강제 푸시(원격 release를 main 기반으로 갱신)
+          git push --force-with-lease origin release
