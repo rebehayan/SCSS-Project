@@ -18,29 +18,33 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Prepare release branch from main (remove scss & css)
+      - name: Prepare release branch from main (remove ONLY root scss & css)
         run: |
           set -e
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # 최신 원격 정보
           git fetch origin
 
           # main 기준으로 release 브랜치 재생성/리셋
           git checkout -B release origin/main
 
-          # 산출물 제외
-          rm -rf scss css
+          # --- 루트 폴더만 제거 ---
+          # (guide/css 등 하위 경로는 보존)
+          [ -d "./css" ] && rm -rf "./css"
+          [ -d "./scss" ] && rm -rf "./scss"
 
-          # 삭제된 파일 스테이징
+          # 혹시라도 guide/css 가 삭제로 스테이징되었으면 되살림(보호장치)
+          git restore --staged --worktree --quiet -- guide/css || true
+
+          # 변경 스테이징
           git add -A
 
           # 변경이 있을 때만 커밋
           if ! git diff --cached --quiet; then
-            git commit -m "chore(release): prepare release branch without scss and css"
+            git commit -m "chore(release): prepare release branch (drop root css & scss, keep guide/css)"
           fi
 
-          # 안전한 강제 푸시(원격 release를 main 기반으로 갱신)
+          # 안전한 강제 푸시
           git push --force-with-lease origin release
