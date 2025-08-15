@@ -21,6 +21,7 @@
       { "text": "Breadcrumb", "href": null },
       { "text": "Pagination", "href": null },
       { "text": "Tabs", "href": null },
+      { "text": "Text List", "href": "./guide/text-list.html" },
       { "text": "Pipe UI", "href": "./guide/pipe.html" },
       { "text": "Forms", "href": "./guide/forms.html" },
       { "text": "Dialog", "href": null },

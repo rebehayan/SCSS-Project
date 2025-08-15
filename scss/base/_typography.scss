@@ -1,0 +1,31 @@
+@use '../abstract/' as *;
+
+$baseFont: -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
+  'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
+  'Segoe UI Symbol', sans-serif;
+$notosans: 'Noto Sans KR', sans-serif;
+$pretendard: 'Pretendard Variable', Pretendard;
+$FONT-FAMILY: $pretendard, $baseFont;
+
+@layer atom.typography {
+  @include REM(true);
+  @include text(xs, fs 10px c var(--gray700));
+  @include text(base, fs 14px c var(--gray700)) {
+    &.type1 {
+      padding-top: 10px;
+    }
+  }
+
+  strong,
+  b {
+    &[class*='text-'] {
+      font-weight: var(--fw, 700);
+    }
+  }
+
+  .link {
+    text-decoration: underline 2px;
+    text-decoration-color: red;
+    text-underline-offset: 3px;
+  }
+}

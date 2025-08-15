@@ -1,0 +1,100 @@
+@use '../abstract/' as *;
+
+$buttonSize: (
+  base: (
+    fontSize: 11px,
+    height: 41px,
+    border: 1px,
+    padding: 29.7px,
+  ),
+  lg: (
+    fontSize: 28px,
+    height: 85px,
+    border: 1px,
+    padding: 12px,
+  ),
+);
+
+$buttonColor: (
+  primary: (
+    borderColor: #000,
+    bgColor: #000,
+    color: #fff,
+    hoverBgColor: #c6c6c6,
+    hoverBorderColor: #000,
+    hoverColor: #fff,
+    focusBorderColor: #000,
+    focusBgColor: #c6c6c6,
+    focusColor: #fff,
+    activeBorderColor: #000,
+    activeBgColor: #c6c6c6,
+    activeColor: #fff,
+  ),
+  secondary: (
+    borderColor: #ccc,
+    bgColor: #f0f0f0,
+    color: #333,
+    hoverBgColor: #e0e0e0,
+    hoverBorderColor: #bbb,
+    hoverColor: #222,
+    focusBorderColor: #bbb,
+    focusBgColor: #e0e0e0,
+    focusColor: #222,
+    activeBorderColor: #bbb,
+    activeBgColor: #e0e0e0,
+    activeColor: #222,
+  ),
+);
+
+$buttonIcon: (
+  1: (
+    direction: a,
+    width: 1rem,
+    height: 2rem,
+    bgImg: 'ico.svg',
+  ),
+  2: (
+    direction: b,
+    width: 1rem,
+    height: 2rem,
+    bgImg: 'ico.svg',
+  ),
+);
+
+@layer molecules.button {
+  .btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    gap: 1rem;
+  }
+  .btn {
+    @include buttonSize($buttonSize, base);
+    @include buttonSize($buttonSize, lg);
+    @include buttonColor($buttonColor, primary);
+    @include buttonColor($buttonColor, secondary);
+    @include buttonIcon($buttonIcon, 1);
+    @include buttonIcon($buttonIcon, 2);
+  }
+}
+
+// 아이콘 공통 사이즈
+$icon-sizes: (
+  xs: 1.5rem,
+  sm: 1.6rem,
+  base: 2rem,
+  md: 2.5rem,
+  lg: 2.8rem,
+);
+// 아이콘 종류
+$icons: (
+  arrowdown: (
+    icon: 'ico_select.svg',
+    size: 3rem,
+  ),
+);
+@layer molecules.button {
+  @include iconSize($icon-sizes);
+  @include icon($icons, arrowdown);
+}

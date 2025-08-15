@@ -1,6 +1,56 @@
 @charset "UTF-8";
 @layer reset, print, atom, molecules, organisms, template, page, utillity;
-/* 기초정의 */
+/* -------------------------------------------------------------------------- */
+/*                                   Radius                                   */
+/* -------------------------------------------------------------------------- */
+.rounded-2rem {
+  border-radius: 2rem;
+}
+
+.rounded-4rem {
+  border-radius: 4rem;
+}
+
+.rounded-5rem {
+  border-radius: 5rem;
+}
+
+.rounded-6rem {
+  border-radius: 6rem;
+}
+
+.rounded-full {
+  border-radius: calc(infinity * 1rem);
+}
+
+@layer atom.typography {
+  html {
+    font-size: 62.5%;
+  }
+  body {
+    font-size: 1rem;
+  }
+  .text-xs {
+    font-size: 10px;
+    color: var(--gray700);
+  }
+  .text-base {
+    font-size: 14px;
+    color: var(--gray700);
+  }
+  .text-base.type1 {
+    padding-top: 10px;
+  }
+  strong[class*=text-],
+  b[class*=text-] {
+    font-weight: var(--fw, 700);
+  }
+  .link {
+    text-decoration: underline 2px;
+    text-decoration-color: red;
+    text-underline-offset: 3px;
+  }
+}
 @layer reset {
   /* -------------------------------------------------------------------------- */
   /*                                    Reset                                   */
@@ -58,7 +108,6 @@
   dialog) {
     margin: 0;
     padding: 0;
-    /* font-family: "Noto Sans KR", sans-serif; */
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   }
   :where(body, input, select, textarea, button, img, fieldset) {
@@ -183,72 +232,7 @@
     border: none;
   }
 }
-@layer print {
-  @media print {
-    .header,
-    .footer,
-    .visual {
-      display: none;
-    }
-    .page-break {
-      page-break-before: always;
-    }
-  }
-  @page {
-    margin: 1cm 2cm;
-  }
-  .print {
-    display: block;
-  }
-  @media screen {
-    .print {
-      display: none;
-    }
-  }
-}
-@layer debug {
-  /* 유틸리티 클래스 단독사용 방지용 */
-  [class]:not([class*=" "]).xxxs::after, [class]:not([class*=" "]).xxs::after, [class]:not([class*=" "]).xs::after, [class]:not([class*=" "]).sm::after, [class]:not([class*=" "]).base::after, [class]:not([class*=" "]).md::after, [class]:not([class*=" "]).lg::after, [class]:not([class*=" "]).xl::after, [class]:not([class*=" "]).xxl::after, [class]:not([class*=" "]).xxxl::after {
-    content: attr(class) "(은)는 단독으로 사용할 수 없습니다.";
-    display: block;
-    color: tomato;
-  }
-  /* 영역 확인용 */
-  .debug * {
-    outline: 2px solid red !important;
-  }
-  .debug * * {
-    outline: 2px solid seagreen !important;
-  }
-  .debug * * * {
-    outline: 2px solid slateblue !important;
-  }
-  .debug * * * * {
-    outline: 2px solid orange !important;
-  }
-  .debug * * * * * {
-    outline: 2px solid salmon !important;
-  }
-  .debug2 * {
-    background-color: rgba(0, 0, 0, 0.05) !important;
-  }
-  /* 대체텍스트 점검 */
-  .alt *:has(img:not([alt]))::after, .alt *:has(img[alt=""])::after {
-    content: "대체텍스트를 넣어주세요";
-    position: absolute;
-    left: 0;
-    top: -1.5rem;
-    white-space: nowrap;
-    font-size: 1.2rem;
-    color: red;
-    background-color: var(--white);
-  }
-}
-/* 원자 */
 @layer atom.variable {
-  /* -------------------------------------------------------------------------- */
-  /*                                    전역CSS                                 */
-  /* -------------------------------------------------------------------------- */
   :root {
     --white: #ffffff;
     --black: #000;
@@ -315,367 +299,226 @@
     --ls-md: 0.01rem;
   }
 }
-@layer utillity {
-  /* -------------------------------------------------------------------------- */
-  /*                                    Align                                   */
-  /* -------------------------------------------------------------------------- */
-  .align {
-    display: flex;
+@layer print {
+  @media print {
+    .header,
+    .footer,
+    .visual {
+      display: none;
+    }
+    .page-break {
+      page-break-before: always;
+    }
   }
-  .align.right {
-    justify-content: flex-end;
+  @page {
+    margin: 1cm 2cm;
   }
-  .align.center {
+  .print {
+    display: block;
+  }
+  @media screen {
+    .print {
+      display: none;
+    }
+  }
+}
+@layer molecules.badge {
+  .badge {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-  }
-  .align.both {
-    justify-content: space-between;
-  }
-  .align.triple {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-  }
-  .align.triple > :nth-child(1) {
-    justify-self: start;
-  }
-  .align.triple > :nth-child(2) {
-    justify-self: center;
-  }
-  .align.triple > :nth-child(3) {
-    justify-self: end;
-  }
-  .align.vt {
-    align-items: flex-start;
-  }
-  .align.vm {
-    align-items: center;
-  }
-  .align.vb {
-    align-items: flex-end;
-  }
-  .text-left {
-    text-align: left;
-  }
-  .text-center {
     text-align: center;
   }
-  .text-right {
-    text-align: right;
+  .badge.small {
+    padding: 0 12px;
+    height: 34px;
+    border: 1px solid;
+    line-height: 1;
+    border-radius: 34px;
+    box-sizing: border-box;
+    font-size: 14px;
   }
-  /* -------------------------------------------------------------------------- */
-  /*                                 Text Color                                 */
-  /* -------------------------------------------------------------------------- */
-  .text-primary {
-    color: var(--primary, #000);
+  .badge.regular {
+    padding: 0 20px;
+    height: 40px;
+    border: 1px solid;
+    line-height: 1;
+    border-radius: 40px;
+    box-sizing: border-box;
+    font-size: 16px;
   }
-  .text-secondary {
-    color: var(--secondary, #000);
+  .badge.gray {
+    background: #ccc;
+    border-color: #ccc;
+    color: #fff;
   }
-  .text-danger {
-    color: var(--danger, #000);
-  }
-  .text-success {
-    color: var(--success, #000);
-  }
-  /* -------------------------------------------------------------------------- */
-  /*                                   Rounded                                  */
-  /* -------------------------------------------------------------------------- */
-  .rounded-base {
-    border-radius: 0.8rem;
-  }
-  .rounded-full {
-    border-radius: 100rem;
-  }
-}
-@layer utillity.spacing {
-  /* -------------------------------------------------------------------------- */
-  /*                                   Spacing                                  */
-  /* -------------------------------------------------------------------------- */
-  .mt2 {
-    margin-top: 0.2rem;
-  }
-  .mt4 {
-    margin-top: 0.4rem;
+  .badge.black {
+    background: #000;
+    border-color: #000;
+    color: #fff;
   }
 }
-/* -------------------------------------------------------------------------- */
-/*                                   Radius                                   */
-/* -------------------------------------------------------------------------- */
-.rounded-2rem {
-  border-radius: 2rem;
-}
-
-.rounded-4rem {
-  border-radius: 4rem;
-}
-
-.rounded-5rem {
-  border-radius: 5rem;
-}
-
-.rounded-6rem {
-  border-radius: 6rem;
-}
-
-.rounded-full {
-  border-radius: calc(infinity * 1rem);
-}
-
-@layer atom.typography {
-  body {
-    background-color: var(--white);
-    font-size: var(--fs, var(--font-base));
-    color: var(--gray900);
-  }
-  .text-xs {
-    color: var(--color, var(--gray900));
-    font-size: var(--fs, var(--font-xs));
-    line-height: var(--lh, var(--lh-xs));
-    letter-spacing: var(--ls, var(--ls-xs));
-    font-weight: var(--fw, 400);
-  }
-  .text-sm {
-    color: var(--color, var(--gray900));
-    font-size: var(--fs, var(--font-sm));
-    line-height: var(--lh, var(--lh-sm));
-    letter-spacing: var(--ls, var(--ls-sm));
-    font-weight: var(--fw, 400);
-  }
-  .text-base {
-    color: var(--color, var(--gray900));
-    font-size: var(--fs, var(--font-base));
-    line-height: var(--lh, var(--lh-base));
-    letter-spacing: var(--ls, var(--ls-base));
-    font-weight: var(--fw, 400);
-  }
-  .text-md {
-    color: var(--color, var(--gray900));
-    font-size: var(--fs, var(--font-md));
-    line-height: var(--lh, var(--lh-md));
-    letter-spacing: var(--ls, var(--ls-md));
-    font-weight: var(--fw, 400);
-  }
-  .text-lg {
-    color: var(--color, var(--gray900));
-    font-size: var(--fs, var(--font-lg));
-    line-height: var(--lh, var(--lh-lg));
-    letter-spacing: var(--ls, var(--ls-lg));
-    font-weight: var(--fw, 400);
-  }
-  .text-xl {
-    color: var(--color, var(--gray900));
-    font-size: var(--fs, var(--font-xl));
-    line-height: var(--lh, var(--lh-xl));
-    letter-spacing: var(--ls, var(--ls-xl));
-    font-weight: var(--fw, 400);
-  }
-  strong[class*=text-],
-  b[class*=text-] {
-    font-weight: var(--fw, 700);
-  }
-  .link {
-    text-decoration: underline 2px;
-    text-decoration-color: red;
-    text-underline-offset: 3px;
-  }
-}
-/* 분자 */
-@layer atom.button {
+@layer molecules.button {
   .btn {
     display: inline-flex;
+    justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    text-align: center;
-    justify-content: center;
-    /* -------------------------------------------------------------------------- */
-    /*                                    크기정의                                  */
-    /* -------------------------------------------------------------------------- */
-    /* -------------------------------------------------------------------------- */
-    /*                                    색상정의                                  */
-    /* -------------------------------------------------------------------------- */
-    /* -------------------------------------------------------------------------- */
-    /*                                    아이콘정의                                */
-    /* -------------------------------------------------------------------------- */
+    gap: 1rem;
   }
   .btn.base {
-    --px: 1rem;
-    --py: 1rem;
-    /* --fs:1.2rem; */
-    padding-inline: var(--px);
-    padding-block: var(--py);
-    font-size: var(--fs, var(--font-base));
+    font-size: 11px;
+    height: 41px;
+    border: 1px;
+    padding-inline: 29.7px;
   }
-  .btn.md {
-    --px: 1.2rem;
-    --py: 1.2rem;
-    /* --fs:1.2rem; */
-    padding-inline: var(--px);
-    padding-block: var(--py);
-    font-size: var(--fs, var(--font-base));
+  .btn.lg {
+    font-size: 28px;
+    height: 85px;
+    border: 1px;
+    padding-inline: 12px;
   }
   .btn.primary {
-    color: var(--white);
-    background-color: var(--primary);
+    border-color: #000;
+    background-color: #000;
+    color: #fff;
+    transition: 0.4s;
+  }
+  .btn.primary:hover {
+    border-color: #000;
+    background-color: #c6c6c6;
+    color: #fff;
+  }
+  .btn.primary:active {
+    border-color: #000;
+    background-color: #c6c6c6;
+    color: #fff;
+  }
+  .btn.primary:focus {
+    border-color: #000;
+    background-color: #c6c6c6;
+    color: #fff;
   }
   .btn.secondary {
-    color: var(----gray500);
-    background-color: var(--white);
-    border: 1px solid var(--gray500);
+    border-color: #ccc;
+    background-color: #f0f0f0;
+    color: #333;
+    transition: 0.4s;
   }
-  .btn:disabled {
-    opacity: 0.2;
+  .btn.secondary:hover {
+    border-color: #bbb;
+    background-color: #e0e0e0;
+    color: #222;
   }
-  .btn[class*=ico]::after {
+  .btn.secondary:active {
+    border-color: #bbb;
+    background-color: #e0e0e0;
+    color: #222;
+  }
+  .btn.secondary:focus {
+    border-color: #bbb;
+    background-color: #e0e0e0;
+    color: #222;
+  }
+  .btn.ico1::after {
     content: "";
-    width: var(--width);
-    aspect-ratio: 1;
-    background: var(--bg) no-repeat center/contain;
+    width: 1rem;
+    height: 2rem;
+    background: url(../images/ico.svg) no-repeat 0 0;
   }
-  .btn.ico1 {
-    --width: 2rem;
-    --bg: url("../images/ico1.svg");
+  .btn.ico2::before {
+    content: "";
+    width: 1rem;
+    height: 2rem;
+    background: url(../images/ico.svg) no-repeat 0 0;
   }
-  .btn.ico2 {
-    --width: 2rem;
-    --bg: url("../images/ico2.svg");
-  }
-  /* -------------------------------------------------------------------------- */
-  /*                                    아이콘전용                                */
-  /* -------------------------------------------------------------------------- */
-  .ico-button {
-    --size: var(--icon-size, 3rem);
-    --rounded: 0;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: var(--size);
-    aspect-ratio: 1;
-    border-radius: var(--rounded, 0);
-    background-color: transparent;
-    cursor: pointer;
-    position: relative;
-    /* 아이콘 유효성 검사 */
-    /* 아이콘 크기 정의 */
-  }
-  .ico-button:has(svg:not(svg[aria-hidden=true]))::after {
-    content: "svg에 aria-hidden을 정의하세요";
-    position: absolute;
-    left: 0;
-    top: -1.5rem;
-    white-space: nowrap;
-    font-size: 1.2rem;
-    color: red;
-    background-color: var(--white);
-  }
-  .ico-button:not([aria-label])::after {
-    content: "button에 aria-label에 대체텍스트를 넣어주세요";
-    position: absolute;
-    left: 0;
-    top: -1.5rem;
-    white-space: nowrap;
-    font-size: 1.2rem;
-    color: red;
-    background-color: var(--white);
-  }
-  .ico-button.xs {
+}
+@layer molecules.button {
+  .ico.xs {
     --icon-size: 1.5rem;
   }
-  .ico-button.sm {
+  .ico.sm {
     --icon-size: 1.6rem;
   }
-  .ico-button.base {
+  .ico.base {
     --icon-size: 2rem;
   }
-  .ico-button.md {
+  .ico.md {
     --icon-size: 2.5rem;
   }
-  .ico-button.lg {
+  .ico.lg {
     --icon-size: 2.8rem;
   }
-}
-@layer atom.badge {
-  .badge {
-    --paddingX: 1rem;
-    --height: 1rem;
-    --fontSize: 1.2rem;
-    --radius: 1rem;
-    display: inline-flex;
-    align-items: center;
-    box-sizing: border-box;
-    text-align: center;
-    justify-content: center;
-    padding-inline: var(--paddingX);
-    height: var(--height);
-    font-size: var(--fontSize, var(--font-base));
-    border-radius: var(--radius);
-    /* -------------------------------------------------------------------------- */
-    /*                                    색상정의                                  */
-    /* -------------------------------------------------------------------------- */
-  }
-  .badge.blue {
-    color: var(--white);
-    background-color: var(--blue600);
-  }
-  .badge.orange {
-    color: var(--white);
-    background-color: var(--red500);
+  .arrowdown {
+    width: var(--icon-size, 3rem);
+    background: url(../images/ico_select.svg) no-repeat center / contain;
   }
 }
-@layer molecules.textfield {
+@layer atom.text-field {
   .text-field {
-    --paddingX: 1rem;
-    --width: auto;
-    --height: 4rem;
-    --borderColor: var(--gray500);
-    --rounded: 0.4rem;
-    --fontSize: 1.4rem;
-    --color: var(--gray700);
-    --placeholderColor: var(--gray500);
-    --disabled: 0.4;
-    --hoverBorderColor: var(--gray800);
-    --focusBorderColor: var(--gray800);
-    padding-inline: var(--paddingX);
-    width: var(--width);
-    height: var(--height);
-    border: 1px solid var(--borderColor);
-    border-radius: var(--rounded);
+    padding-inline: 1rem;
+    width: auto;
+    height: 4rem;
+    border: 1px solid var(--gray500);
+    border-radius: 0.4rem;
     box-sizing: border-box;
-    color: var(--color);
-    font-size: var(--fontSize);
+    color: var(--gray700);
+    font-size: 1.4rem;
   }
   .text-field::placeholder {
-    color: var(--placeholderColor);
+    color: var(--gray500);
   }
   .text-field:hover {
-    border-color: var(--hoverBorderColor);
+    border-color: var(--gray800);
   }
   .text-field:focus {
-    border-color: var(--focusBorderColor);
+    border-color: var(--gray800);
     outline: none;
   }
   .text-field:disabled {
-    opacity: var(--disabled);
+    opacity: 0.4;
   }
   .text-field.error {
     border: 1px solid var(--danger);
     color: var(--danger);
   }
-  textarea.text-field {
-    --width: 100%;
-    --height: 10rem;
-    --paddingY: 1rem;
+  .text-field.sm {
+    height: 3.5rem;
+    font-size: 1.2rem;
+  }
+  .text-field.lg {
+    height: 5rem;
+    font-size: 1.6rem;
+  }
+  .text-field.fullsize {
+    width: 100%;
   }
 }
-@layer molecules.radio {
+@layer molecules.select {
+  .select {
+    height: 40px;
+    padding-inline: 16px 44px;
+    border-radius: 8px;
+    border: 1px solid silver;
+    background: url(../images/ico_select.svg) no-repeat right 16px center #fff;
+    background-size: 20px;
+    color: #1d1d1d;
+    font-size: 19px;
+    appearance: none;
+  }
+  .select.sm {
+    height: 32px;
+    font-size: 15px;
+    background-size: 16px;
+  }
+  .select.lg {
+    height: 48px;
+    font-size: 21px;
+    background-size: 24px;
+  }
+}
+@layer atom.choice {
   .radio {
-    --offImage: url(../images/ico_radio_off.svg);
-    --onImage: url(../images/ico_radio_on.svg);
-    --fontSize: 19px;
-    --offColor: gray;
-    --onColor: tomato;
-    --pl: 32px;
-    --height: 24px;
     display: inline-flex;
     align-items: center;
   }
@@ -687,34 +530,35 @@
     clip: rect(1px, 1px, 1px, 1px);
   }
   .radio input:checked + label {
-    color: var(--onColor);
-    background: var(--onImage) no-repeat left;
+    color: tomato;
+    background: url(../images/ico_radio_on.svg) no-repeat left / contain;
   }
   .radio input:focus + label {
     outline: 2px solid #000;
     border-radius: 2px;
   }
   .radio label {
-    padding-left: var(--pl);
-    background: var(--offImage) no-repeat left;
-    font-size: var(--fontSize);
-    color: var(--offColor);
-    height: var(--height);
+    background: url(../images/ico_radio_off.svg) no-repeat left / contain;
+    padding-left: var(--pl, 32px);
+    font-size: 19px;
+    color: gray;
+    height: 24px;
     align-content: center;
   }
   .radio:has(label:empty) {
     --pl: 24px;
   }
-}
-@layer molecules.checkbox {
+  .radio.sm label {
+    font-size: 15px;
+    padding-left: 24px;
+    height: 20px;
+  }
+  .radio.lg label {
+    font-size: 21px;
+    padding-left: 40px;
+    height: 28px;
+  }
   .checkbox {
-    --offImage: url(../images/ico_check_off.svg);
-    --onImage: url(../images/ico_check_on.svg);
-    --fontSize: 15px;
-    --offColor: gray;
-    --onColor: blue;
-    --pl: 3rem;
-    --height: 24px;
     display: inline-flex;
     align-items: center;
   }
@@ -726,363 +570,227 @@
     clip: rect(1px, 1px, 1px, 1px);
   }
   .checkbox input:checked + label {
-    color: var(--onColor);
-    background: var(--onImage) no-repeat left;
+    color: tomato;
+    background: url(../images/ico_check_on.svg) no-repeat left / contain;
   }
   .checkbox input:focus + label {
     outline: 2px solid #000;
     border-radius: 2px;
   }
-  .checkbox input:disabled + label {
-    opacity: 0.2;
-  }
   .checkbox label {
-    padding-left: var(--pl);
-    background: var(--offImage) no-repeat left;
-    font-size: var(--fontSize);
-    color: var(--offColor);
-    height: var(--height);
+    background: url(../images/ico_check_off.svg) no-repeat left / contain;
+    padding-left: var(--pl, 32px);
+    font-size: 19px;
+    color: gray;
+    height: 24px;
     align-content: center;
   }
   .checkbox:has(label:empty) {
     --pl: 24px;
   }
-}
-@layer molecules.select {
-  .select {
-    --height: 40px;
-    --pl: 16px;
-    --pr: 44px;
-    --rounded: 8px;
-    --borderColor: silver;
-    --arrowImage: url(../images/ico_select.svg);
-    --bgColor: #fff;
-    --fontSize: 19px;
-    --fontColor: #1d1d1d;
-    height: var(--height);
-    padding-inline: var(--pl) var(--pr);
-    border-radius: var(--rounded);
-    border: 1px solid var(--borderColor);
-    background: var(--arrowImage) no-repeat right var(--pl) center var(--bgColor);
-    color: var(--fontColor);
-    font-size: var(--fontSize);
-    appearance: none;
+  .checkbox.sm label {
+    font-size: 15px;
+    padding-left: 24px;
+    height: 20px;
+  }
+  .checkbox.lg label {
+    font-size: 21px;
+    padding-left: 40px;
+    height: 28px;
   }
 }
-@layer molecules.switch {
-  .switch {
-    --width: 100px;
-    --height: 40px;
-    --padding: 2px;
-    --borderColor: gray;
-    --offColor: silver;
-    --offBgColor: rgba(0, 0, 0, 0.05);
-    --onColor: lightgreen;
-    --onBgColor: green;
-    --textColor: #000;
-  }
-  .switch input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-  }
-  .switch input:checked + label {
-    background-color: var(--onBgColor);
-    justify-content: start;
-  }
-  .switch input:checked + label::before {
-    left: 100%;
-    translate: calc(-100% - 2px) -50%;
-    background-color: var(--onColor);
-  }
-  .switch input:checked + label::after {
-    content: attr(data-on);
-  }
-  .switch input:focus + label {
-    outline: 2px solid #000;
-  }
-  .switch label {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    border-radius: var(--width);
-    width: var(--width);
-    height: var(--height);
-    padding: var(--padding) calc(var(--padding) * 4);
-    border: 1px solid var(--borderColor);
+@layer molecules.text-list {
+  .list-type1 > li {
+    display: grid;
+    grid-template-columns: min-content 1fr;
     align-items: center;
-    justify-content: end;
-    transition: 0.4s;
-    background-color: var(--offBgColor);
-    box-sizing: border-box;
+    gap: 0.5rem;
   }
-  .switch label::before {
-    --left: var(--padding);
-    --cricle: calc(var(--height) - (var(--left) * 3));
+  .list-type1 > li::before {
+    display: inline-block;
+    align-self: start;
+    translate: 0 0.6rem;
     content: "";
-    position: absolute;
-    left: var(--left);
-    top: 50%;
-    translate: 0 -50%;
-    width: var(--cricle);
-    height: var(--cricle);
-    border-radius: 100%;
-    background-color: var(--offColor);
-    transition: 0.4s;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: calc(infinity * 1rem);
+    background-color: var(--gray700);
   }
-  .switch label::after {
-    content: attr(data-off);
-    text-align: center;
-    white-space: nowrap;
-    line-height: 1;
-    transition: 0.4s;
-    color: var(--textColor);
-  }
-}
-@layer molecules.chip {
-  .chip {
-    --borderOnColor: #000;
-    --borderOffColor: #000;
-    --fontOnColor: #fff;
-    --fontOffColor: #000;
-    --bgOnColor: #000;
-    --bgOffColor: #fff;
-    --px: 10px;
-    --py: 4px;
-    --fontSize: 16px;
-    --rounded: 100px;
-    --gap: 5px;
-    display: flex;
+  .list-type2 > li {
+    display: grid;
+    grid-template-columns: min-content 1fr;
     align-items: center;
-    gap: var(--gap);
+    gap: 0.5rem;
   }
-  .chip input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
-  .chip input:checked + label {
-    border-color: var(--borderOnColor);
-    background-color: var(--bgOnColor);
-    color: var(--fontOnColor);
-  }
-  .chip input:focus + label {
-    outline: 2px solid #000;
-    outline-offset: 2px;
-  }
-  .chip label {
-    padding: var(--py) var(--px);
-    border: 1px solid var(--borderOffColor);
-    background-color: var(--bgOffColor);
-    border-radius: var(--rounded);
-    font-size: var(--fontSize);
-    color: var(--fontOffColor);
-  }
-}
-@layer molecules.floatingLabel {
-  .floating-label {
-    position: relative;
-    font-size: 16px;
-  }
-  .floating-label input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--gray700);
-    font-size: 16px;
-    box-sizing: border-box;
-  }
-  .floating-label label {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    transition: 0.3s ease-out;
-    color: var(--gray600);
-    background-color: white;
-  }
-  .floating-label input:focus + label,
-  .floating-label input:not(:placeholder-shown) + label {
-    top: -10px;
-    font-size: 12px;
-    color: var(--blue400);
-    padding: 4px 10px;
-  }
-}
-@layer molecules.date {
-  input[type=date] {
-    --bg: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>');
-    --paddingRight: 1.5rem;
-    --paddingLeft: 0.5rem;
-    --height: 4rem;
-    --rounded: 0.3rem;
-    --borderColor: var(--gray400);
-    position: relative;
-    padding-inline: var(--paddingLeft) var(--paddingRight);
-    border: 1px solid var(--borderColor);
-    height: var(--height);
-    border-radius: var(--rounded);
-  }
-  input[type=date]::-webkit-calendar-picker-indicator {
-    position: absolute;
-    inset: 0;
-    background: none;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-  input[type=date]::after {
-    content: attr(data-placeholder);
-    position: absolute;
-    left: var(--paddingLeft);
-    top: 50%;
-    translate: 0 -50%;
-  }
-  input[type=date]::before {
+  .list-type2 > li::before {
+    display: inline-block;
+    align-self: start;
+    translate: 0 0.7rem;
     content: "";
-    position: absolute;
-    inset: 0;
-    background: no-repeat right 0.2rem center/2.5rem auto #fff;
-    background-image: var(--bg);
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 0;
+    background-color: var(--gray700);
   }
-  input[type=date]:valid::after {
-    display: none;
+  .list-type3 > li {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    align-items: center;
+    gap: 0.5rem;
   }
-  input[type=date]:valid::before {
-    background-color: transparent;
+  .list-type3 > li::before {
+    display: inline-block;
+    align-self: start;
+    translate: 0 0;
+    content: "-";
+  }
+  .list-type4 > li {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .list-type4 > li::before {
+    display: inline-block;
+    align-self: start;
+    translate: 0 0;
+    content: "※";
+  }
+  .list-type5 > li {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .list-type5 > li::before {
+    display: inline-block;
+    align-self: start;
+    translate: 0 0.2rem;
+    content: "*";
+  }
+  .list-type6 > li {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .list-type6 > li::before {
+    display: inline-block;
+    align-self: start;
+    translate: 0 0.4rem;
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0;
+    background: url(../images/ico_select.svg) no-repeat center / contain;
   }
 }
 @layer molecules.pipe {
   .pipe-type1 {
-    --width: 1px;
-    --height: 10px;
-    --marginX: 1rem;
-    --bg: var(--gray600);
-  }
-  [class*=pipe-] {
-    display: inline-flex;
-    align-items: center;
-  }
-  [class*=pipe-] > * {
     display: flex;
     align-items: center;
   }
-  [class*=pipe-] > * + *::before {
+  .pipe-type1 > div + div {
+    display: flex;
+    align-items: center;
+  }
+  .pipe-type1 > div + div::before {
     content: "";
-    width: var(--width);
-    height: var(--height);
-    margin-inline: var(--marginX);
-    background: var(--bg);
+    width: 1px;
+    height: 10px;
+    margin-inline: 10px;
+    background-color: red;
   }
 }
-.gnb.type1 {
-  display: flex;
-  gap: 30px;
-}
-.gnb.type1 .depth {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: 0.5s;
-  position: absolute;
-}
-.gnb.type1 .depth > ul {
-  overflow: hidden;
-}
-.gnb.type1 .depth a {
-  white-space: nowrap;
-}
-.gnb.type1 > li:has(a:focus) .depth, .gnb.type1 > li:hover .depth {
-  grid-template-rows: 1fr;
-}
-.gnb.type1 .depth:has(a:focus) {
-  grid-template-rows: 1fr;
-}
-.gnb.type2 {
-  display: flex;
-  gap: 30px;
-}
-.gnb.type2 .depth {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: 0.5s;
-  position: absolute;
-}
-.gnb.type2 .depth > ul {
-  overflow: hidden;
-}
-.gnb.type2 .depth a {
-  white-space: nowrap;
-}
-.gnb.type2:has(a:focus) .depth, .gnb.type2:hover .depth {
-  grid-template-rows: 1fr;
-}
-.gnb.type3 {
-  display: flex;
-  anchor-name: --gnb;
-  gap: 30px;
-}
-.gnb.type3 .depth {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: 0.5s;
-  position: absolute;
-}
-.gnb.type3 .depth > ul {
-  overflow: hidden;
-}
-.gnb.type3 .depth a {
-  white-space: nowrap;
-}
-.gnb.type3:has(a:focus) .depth, .gnb.type3:hover .depth {
-  grid-template-rows: 1fr;
-}
-.gnb.type3 .depth > ul {
-  anchor-name: --depth;
-}
-.gnb.type3::after {
-  content: "";
-  height: anchor-size(--depth);
-  position: absolute;
-  z-index: -1;
-  inset: anchor(--gnb bottom) 0 auto 0;
-  background-color: var(--bgColor, rgba(0, 0, 0, 0.07));
-}
-
-.snb {
-  interpolate-size: allow-keywords;
-}
-.snb details::details-content {
-  overflow: hidden;
-  block-size: 0;
-  transition: block-size 0.5s, content-visibility 0.5s;
-  transition-behavior: allow-discrete;
-}
-.snb details[open]::details-content {
-  block-size: auto;
-}
-
-/* 유기체 */
-@layer organisms.table {
-  .table-type1 th,
-  .table-type1 td {
-    border: 1px solid var(--gray400);
+@layer molecules.navigation {
+  .gnb.type1 {
+    display: flex;
+    font-size: 1.6rem;
+    gap: 30px;
   }
-  .table-type2 th,
-  .table-type2 td {
-    border: 1px solid var(--gray400);
+  .gnb.type1 .depth {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.5s;
+    position: absolute;
+  }
+  .gnb.type1 .depth > ul {
+    overflow: hidden;
+  }
+  .gnb.type1 .depth a {
+    white-space: nowrap;
+  }
+  .gnb.type1 > li:has(a:focus) .depth, .gnb.type1 > li:hover .depth {
+    grid-template-rows: 1fr;
+  }
+  .gnb.type1 .depth:has(a:focus) {
+    grid-template-rows: 1fr;
+  }
+  .gnb.type2 {
+    display: flex;
+    font-size: 1.6rem;
+    gap: 30px;
+  }
+  .gnb.type2 .depth {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.5s;
+    position: absolute;
+  }
+  .gnb.type2 .depth > ul {
+    overflow: hidden;
+  }
+  .gnb.type2 .depth a {
+    white-space: nowrap;
+  }
+  .gnb.type2:has(a:focus) .depth, .gnb.type2:hover .depth {
+    grid-template-rows: 1fr;
+  }
+  .gnb.type3 {
+    display: flex;
+    anchor-name: --gnb;
+    font-size: 1.6rem;
+    gap: 30px;
+  }
+  .gnb.type3 .depth {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.5s;
+    position: absolute;
+  }
+  .gnb.type3 .depth > ul {
+    overflow: hidden;
+  }
+  .gnb.type3 .depth a {
+    white-space: nowrap;
+  }
+  .gnb.type3:has(a:focus) .depth, .gnb.type3:hover .depth {
+    grid-template-rows: 1fr;
+  }
+  .gnb.type3 .depth > ul {
+    anchor-name: --depth;
+  }
+  .gnb.type3::after {
+    content: "";
+    height: anchor-size(--depth);
+    position: absolute;
+    z-index: -1;
+    inset: anchor(--gnb bottom) 0 auto 0;
+    background-color: var(--bgColor, rgba(0, 0, 0, 0.07));
+  }
+  .snb {
+    font-size: 1.6rem;
+    interpolate-size: allow-keywords;
+  }
+  .snb details::details-content {
+    overflow: hidden;
+    block-size: 0;
+    transition: block-size 0.5s, content-visibility 0.5s;
+    transition-behavior: allow-discrete;
+  }
+  .snb details[open]::details-content {
+    block-size: auto;
   }
 }
-[popovertarget=popup] {
-  anchor-name: --popup;
-}
-
-#popup {
-  inset: auto auto anchor(--popup top) anchor(--popup 50%);
-  translate: -50%;
-  translate: -50% -1rem;
-}
-
-/* 템플릿 및 페이지 */
 
 /*# sourceMappingURL=style.css.map */

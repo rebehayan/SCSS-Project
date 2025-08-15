@@ -1,0 +1,25 @@
+@use 'sass:map';
+
+@mixin badgeSize($map, $size) {
+  $data: map.get($map, $size);
+
+  &.#{$size} {
+    padding: 0 map.get($data, 'padding');
+    height: map.get($data, 'height');
+    border: 1px solid;
+    line-height: 1;
+    border-radius: map.get($data, 'height');
+    box-sizing: border-box;
+    font-size: map.get($data, 'fontSize');
+  }
+}
+
+@mixin badgeColor($map, $color) {
+  $data: map.get($map, $color);
+
+  &.#{$color} {
+    background: map.get($data, 'background');
+    border-color: map.get($data, 'borderColor');
+    color: map.get($data, 'textColor');
+  }
+}

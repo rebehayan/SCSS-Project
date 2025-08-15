@@ -1,0 +1,35 @@
+@use '../abstract/' as *;
+
+$select: (
+  default: (
+    class: '.select',
+    base: (
+      pl: 16px,
+      pr: 44px,
+      height: 40px,
+      rounded: 8px,
+      borderColor: silver,
+      arrowImage: url(../images/ico_select.svg),
+      bgColor: #fff,
+      fontSize: 19px,
+      fontColor: #1d1d1d,
+      bgSize: 20px,
+    ),
+    variants: (
+      sm: (
+        height: 32px,
+        font-size: 15px,
+        bgSize: 16px,
+      ),
+      lg: (
+        height: 48px,
+        font-size: 21px,
+        bgSize: 24px,
+      ),
+    ),
+  ),
+);
+
+@layer molecules.select {
+  @include select($select);
+}

@@ -1,0 +1,39 @@
+@use '../abstract/' as *;
+
+$text-field: (
+  default: (
+    class: '.text-field',
+    base: (
+      paddingX: 1rem,
+      width: auto,
+      height: 4rem,
+      borderColor: var(--gray500),
+      rounded: 0.4rem,
+      fontSize: 1.4rem,
+      color: var(--gray700),
+      placeholderColor: var(--gray500),
+      errorColor: var(--danger),
+      disabled: 0.4,
+      hoverBorderColor: var(--gray800),
+      focusBorderColor: var(--gray800),
+      errorBorderColor: var(--danger),
+    ),
+    variants: (
+      sm: (
+        height: 3.5rem,
+        font-size: 1.2rem,
+      ),
+      lg: (
+        height: 5rem,
+        font-size: 1.6rem,
+      ),
+      fullsize: (
+        width: 100%,
+      ),
+    ),
+  ),
+);
+
+@layer atom.text-field {
+  @include text-field($text-field);
+}

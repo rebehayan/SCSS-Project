@@ -1,0 +1,16 @@
+@use './font' as *;
+
+@mixin text($size, $fontArray) {
+  .text-#{$size} {
+    @include font($fontArray);
+    @content;
+  }
+}
+
+@mixin textColors($colors) {
+  @each $className, $color in $colors {
+    .text-#{$className} {
+      color: $color;
+    }
+  }
+}

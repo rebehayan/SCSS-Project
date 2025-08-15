@@ -1,0 +1,23 @@
+@use 'sass:map';
+@use './background' as *;
+
+@mixin iconSize($sizes) {
+  @each $key, $value in $sizes {
+    .ico {
+      &.#{$key} {
+        --icon-size: #{$value};
+      }
+    }
+  }
+}
+
+@mixin icon($map, $className) {
+  $data: map.get($map, $className);
+  $size: map.get($data, size);
+  $icon: map.get($data, icon);
+
+  .#{$className} {
+    width: var(--icon-size, $size);
+    @include background($icon, center, null, contain);
+  }
+}

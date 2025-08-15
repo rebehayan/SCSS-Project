@@ -1,0 +1,40 @@
+@use '../abstract/' as *;
+
+$badgeSize: (
+  small: (
+    height: 34px,
+    padding: 12px,
+    fontSize: 14px,
+  ),
+  regular: (
+    height: 40px,
+    padding: 20px,
+    fontSize: 16px,
+  ),
+);
+
+$badgeColor: (
+  'gray': (
+    background: #ccc,
+    borderColor: #ccc,
+    textColor: #fff,
+  ),
+  'black': (
+    background: #000,
+    borderColor: #000,
+    textColor: #fff,
+  ),
+);
+@layer molecules.badge {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    @include badgeSize($badgeSize, small);
+    @include badgeSize($badgeSize, regular);
+    @include badgeColor($badgeColor, 'gray');
+    @include badgeColor($badgeColor, 'black');
+  }
+}

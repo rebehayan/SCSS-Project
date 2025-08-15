@@ -1,8 +1,11 @@
+@use 'sass:list';
+@use 'sass:meta';
+
 @mixin gnb($type, $depthClassName) {
-  @if not index(('type1', 'type2', 'type3'), $type) {
+  @if not list.index(('type1', 'type2', 'type3'), $type) {
     @error "#{$type}은 올바르지 않은 값입니다. 'type1', 'type2', 'type3'중 하나만 유효합니다.";
   }
-  @if type-of($depthClassName) != string {
+  @if meta.type-of($depthClassName) != string {
     @error "#{$depthClassName}은 문자열만 가능합니다.";
   }
 
@@ -65,24 +68,6 @@
   @content;
 }
 
-.gnb {
-  &.type1 {
-    @include gnb('type1', 'depth') {
-      gap: 30px;
-    }
-  }
-  &.type2 {
-    @include gnb('type2', 'depth') {
-      gap: 30px;
-    }
-  }
-  &.type3 {
-    @include gnb('type3', 'depth') {
-      gap: 30px;
-    }
-  }
-}
-
 @mixin snb() {
   interpolate-size: allow-keywords;
 
@@ -99,8 +84,4 @@
       }
     }
   }
-}
-
-.snb {
-  @include snb();
 }

@@ -49,7 +49,7 @@ const css = () => {
     }
     .copy-group {
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(20rem, 1fr));
+      grid-template-columns:repeat(auto-fit, minmax(30rem, 1fr));
       gap:1rem;
       .copy {
         margin:0;

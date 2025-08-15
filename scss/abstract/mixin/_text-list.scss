@@ -1,0 +1,56 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:meta';
+@use './background' as *;
+
+@mixin listStyle($map, $type) {
+  $marker: map.get($map, $type, marker);
+  $markerType: map.get($marker, type);
+
+  @if not list.index((dot, star, dash, img, bill), map.get($marker, type)) {
+    @debug '#{map.get($marker, type)}은 dot, star, dash, img, bill만 허용합니다.';
+  }
+
+  .list-#{$type} {
+    @content;
+    > li {
+      display: grid;
+      grid-template-columns: min-content 1fr;
+      align-items: center;
+      gap: map.get($marker, gap);
+
+      &::before {
+        display: inline-block;
+        align-self: start;
+        translate: 0 map.get($marker, pt);
+
+        @if $markerType == 'star' {
+          content: '*';
+        } @else if $markerType == 'dash' {
+          content: '-';
+        } @else if $markerType == 'bill' {
+          content: '※';
+        } @else if $markerType == 'dot' {
+          content: '';
+          width: map.get($marker, width);
+          height: map.get($marker, height);
+          border-radius: if(
+            meta.type-of(map.get($marker, radius)) == number,
+            map.get($marker, radius),
+            calc(infinity * 1rem)
+          );
+          background-color: map.get($marker, bg);
+        } @else if $markerType == 'img' {
+          content: '';
+          width: map.get($marker, width);
+          height: map.get($marker, height);
+          border-radius: map.get($marker, radius);
+          @if meta.type-of(map.get($marker, bg)) != string {
+            @error "#{(map.get($marker, bg))}은 이미지명.확장자만 허용합니다.";
+          }
+          @include background(map.get($marker, bg), center, null, contain);
+        }
+      }
+    }
+  }
+}

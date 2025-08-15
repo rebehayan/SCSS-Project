@@ -1,0 +1,67 @@
+@use 'sass:map';
+@use './background' as *;
+
+@mixin choice($map, $type) {
+  $style: map.get($map, $type);
+  $class: map.get($style, class);
+  $base: map.get($style, base);
+  $variants: map.get($style, variants);
+
+  #{$class} {
+    display: inline-flex;
+    align-items: center;
+
+    input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+
+      &:checked {
+        + label {
+          color: map.get($base, onColor);
+          @include background(map.get($base, onImage), left, null, contain);
+        }
+      }
+
+      &:focus {
+        + label {
+          outline: 2px solid #000;
+          border-radius: 2px;
+        }
+      }
+    }
+
+    label {
+      @include background(map.get($base, offImage), left, null, contain);
+      padding-left: var(--pl, #{map.get($base, pl)});
+      font-size: map.get($base, fontSize);
+      color: map.get($base, offColor);
+      height: map.get($base, height);
+      align-content: center;
+    }
+
+    &:has(label:empty) {
+      --pl: #{map.get($base, height)};
+    }
+
+    @each $name, $variant in $variants {
+      &.#{$name} {
+        label {
+          @each $prop, $value in $variant {
+            @if $prop == pl {
+              padding-left: $value;
+            } @else if $prop == fontSize {
+              font-size: $value;
+            } @else if $prop == height {
+              height: $value;
+            } @else {
+              #{$prop}: $value;
+            }
+          }
+        }
+      }
+    }
+  }
+}
