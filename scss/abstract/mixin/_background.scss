@@ -1,9 +1,0 @@
-@use 'sass:string';
-// 이미지 경로
-$url: '../images/';
-
-// 이미지명, 좌표, 배경색, 크기
-@mixin background($file, $coordinate: 0 0, $color: null, $size: null) {
-  background: url(#{$url}#{$file}) no-repeat $coordinate
-    if($size, string.unquote('/ #{$size}'), null) $color;
-}
