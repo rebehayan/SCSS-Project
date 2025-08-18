@@ -1,4 +1,5 @@
 @use '../abstract/' as *;
+@use 'sass:list';
 
 $badgeSize: (
   small: (
@@ -25,6 +26,7 @@ $badgeColor: (
     textColor: #fff,
   ),
 );
+
 @layer molecules.badge {
   .badge {
     display: inline-flex;
@@ -32,9 +34,14 @@ $badgeColor: (
     justify-content: center;
     text-align: center;
 
-    @include badgeSize($badgeSize, small);
-    @include badgeSize($badgeSize, regular);
-    @include badgeColor($badgeColor, 'gray');
-    @include badgeColor($badgeColor, 'black');
+    @each $sizes in $badgeSize {
+      $size: list.nth($sizes, 1);
+      @include badgeSize($badgeSize, $size);
+    }
+
+    @each $colors in $badgeColor {
+      $color: list.nth($colors, 1);
+      @include badgeColor($badgeColor, $color);
+    }
   }
 }

@@ -1,4 +1,5 @@
 @use '../abstract/' as *;
+@use 'sass:list';
 
 $choice: (
   radio: (
@@ -52,6 +53,8 @@ $choice: (
 );
 
 @layer atom.choice {
-  @include choice($choice, radio);
-  @include choice($choice, checkbox);
+  @each $selects in $choice {
+    $select: list.nth($selects, 1);
+    @include choice($choice, $select);
+  }
 }

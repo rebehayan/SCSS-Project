@@ -1,79 +1,44 @@
 @use '../abstract/' as *;
-
 $listStyle: (
-  type1: (
-    marker: (
-      type: 'dot',
-      bg: var(--gray700),
-      width: 0.6rem,
-      height: 0.6rem,
-      radius: fullsize,
-      gap: 0.5rem,
-      pt: 0.6rem,
-    ),
+  list-type1: (
+    type: 'dot',
+    gap: 0,
+    pl: 1.6rem,
+    pt: 1.1rem,
+    width: 0.5rem,
+    height: 0.5rem,
+    radius: full,
+    bg: var(--gray700),
   ),
-  type2: (
-    marker: (
-      type: 'dot',
-      bg: var(--gray700),
-      width: 0.4rem,
-      height: 0.4rem,
-      radius: 0,
-      gap: 0.5rem,
-      pt: 0.7rem,
-    ),
+  list-type2: (
+    type: '-',
+    gap: 0,
+    pl: 1.6rem,
+    pt: -0.6rem,
   ),
-  type3: (
-    marker: (
-      type: 'dash',
-      bg: var(--gray700),
-      // width: 0.6rem,
-      // height: 0.6rem,
-      // radius: fullsize,
-      gap: 0.5rem,
-      pt: 0,
-    ),
+  list-type3: (
+    type: '※',
+    gap: 0,
+    pl: 1.8rem,
+    pt: -0.2rem,
   ),
-  type4: (
-    marker: (
-      type: 'bill',
-      bg: var(--gray700),
-      // width: 0.6rem,
-      // height: 0.6rem,
-      // radius: fullsize,
-      gap: 0.5rem,
-      pt: 0,
-    ),
-  ),
-  type5: (
-    marker: (
-      type: 'star',
-      bg: var(--gray700),
-      // width: 0.6rem,
-      // height: 0.6rem,
-      // radius: fullsize,
-      gap: 0.5rem,
-      pt: 0.2rem,
-    ),
-  ),
-  type6: (
-    marker: (
-      type: 'img',
-      bg: 'ico_select.svg',
-      width: 1rem,
-      height: 1rem,
-      radius: 0,
-      gap: 0.5rem,
-      pt: 0.4rem,
-    ),
+  list-type4: (
+    type: 'bg',
+    gap: 0,
+    pl: 1.8rem,
+    pt: 0.5rem,
+    width: 0.8rem,
+    height: 0.8rem,
+    bg: 'ico_select.svg',
   ),
 );
-
 @layer molecules.text-list {
-  @include listStyle($listStyle, type1);
-  @include listStyle($listStyle, type2);
-  @include listStyle($listStyle, type3);
-  @include listStyle($listStyle, type4);
-  @include listStyle($listStyle, type5);
-  @include listStyle($listStyle, type6);
+  @include listStyle($listStyle, list-type1) {
+    --color: var(--gray700);
+    line-height: 180%;
+    letter-spacing: -0.1rem;
+  }
+  @include listStyle($listStyle, list-type2);
+  @include listStyle($listStyle, list-type3);
+  @include listStyle($listStyle, list-type4);
 }

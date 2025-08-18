@@ -15,6 +15,13 @@ $FONT-FAMILY: $pretendard, $baseFont;
       padding-top: 10px;
     }
   }
+  @include textColors(
+    (
+      primary: var(--gray100),
+      secondary: #00ff00,
+      info: #0000ff,
+    )
+  );
 
   strong,
   b {

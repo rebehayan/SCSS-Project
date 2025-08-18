@@ -1,28 +1,25 @@
 @charset "UTF-8";
 @layer reset, print, atom, molecules, organisms, template, page, utillity;
-/* -------------------------------------------------------------------------- */
-/*                                   Radius                                   */
-/* -------------------------------------------------------------------------- */
-.rounded-2rem {
-  border-radius: 2rem;
+@layer utillity.radius {
+  /* -------------------------------------------------------------------------- */
+  /*                                   Radius                                   */
+  /* -------------------------------------------------------------------------- */
+  .rounded-2rem {
+    border-radius: 2rem;
+  }
+  .rounded-4rem {
+    border-radius: 4rem;
+  }
+  .rounded-5rem {
+    border-radius: 5rem;
+  }
+  .rounded-6rem {
+    border-radius: 6rem;
+  }
+  .rounded-full {
+    border-radius: calc(infinity * 1rem);
+  }
 }
-
-.rounded-4rem {
-  border-radius: 4rem;
-}
-
-.rounded-5rem {
-  border-radius: 5rem;
-}
-
-.rounded-6rem {
-  border-radius: 6rem;
-}
-
-.rounded-full {
-  border-radius: calc(infinity * 1rem);
-}
-
 @layer atom.typography {
   html {
     font-size: 62.5%;
@@ -40,6 +37,15 @@
   }
   .text-base.type1 {
     padding-top: 10px;
+  }
+  .text-primary {
+    color: var(--gray100);
+  }
+  .text-secondary {
+    color: #00ff00;
+  }
+  .text-info {
+    color: #0000ff;
   }
   strong[class*=text-],
   b[class*=text-] {
@@ -366,18 +372,6 @@
     box-sizing: border-box;
     gap: 1rem;
   }
-  .btn.base {
-    font-size: 11px;
-    height: 41px;
-    border: 1px;
-    padding-inline: 29.7px;
-  }
-  .btn.lg {
-    font-size: 28px;
-    height: 85px;
-    border: 1px;
-    padding-inline: 12px;
-  }
   .btn.primary {
     border-color: #000;
     background-color: #000;
@@ -419,6 +413,18 @@
     border-color: #bbb;
     background-color: #e0e0e0;
     color: #222;
+  }
+  .btn.base {
+    font-size: 11px;
+    height: 41px;
+    border: 1px;
+    padding-inline: 29.7px;
+  }
+  .btn.lg {
+    font-size: 28px;
+    height: 85px;
+    border: 1px;
+    padding-inline: 12px;
   }
   .btn.ico1::after {
     content: "";
@@ -600,88 +606,62 @@
   }
 }
 @layer molecules.text-list {
+  .list-type1 {
+    --color: var(--gray700);
+    line-height: 180%;
+    letter-spacing: -0.1rem;
+    display: grid;
+    gap: 0;
+  }
   .list-type1 > li {
     display: grid;
-    grid-template-columns: min-content 1fr;
-    align-items: center;
-    gap: 0.5rem;
+    grid-template-columns: 1.6rem 1fr;
   }
   .list-type1 > li::before {
-    display: inline-block;
-    align-self: start;
-    translate: 0 0.6rem;
+    translate: 0 1.1rem;
     content: "";
-    width: 0.6rem;
-    height: 0.6rem;
-    border-radius: calc(infinity * 1rem);
+    width: 0.5rem;
+    height: 0.5rem;
     background-color: var(--gray700);
+    border-radius: calc(infinity * 1rem);
+  }
+  .list-type2 {
+    display: grid;
+    gap: 0;
   }
   .list-type2 > li {
     display: grid;
-    grid-template-columns: min-content 1fr;
-    align-items: center;
-    gap: 0.5rem;
+    grid-template-columns: 1.6rem 1fr;
   }
   .list-type2 > li::before {
-    display: inline-block;
-    align-self: start;
-    translate: 0 0.7rem;
-    content: "";
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: 0;
-    background-color: var(--gray700);
+    translate: 0 -0.6rem;
+    content: "-";
+  }
+  .list-type3 {
+    display: grid;
+    gap: 0;
   }
   .list-type3 > li {
     display: grid;
-    grid-template-columns: min-content 1fr;
-    align-items: center;
-    gap: 0.5rem;
+    grid-template-columns: 1.8rem 1fr;
   }
   .list-type3 > li::before {
-    display: inline-block;
-    align-self: start;
-    translate: 0 0;
-    content: "-";
+    translate: 0 -0.2rem;
+    content: "※";
+  }
+  .list-type4 {
+    display: grid;
+    gap: 0;
   }
   .list-type4 > li {
     display: grid;
-    grid-template-columns: min-content 1fr;
-    align-items: center;
-    gap: 0.5rem;
+    grid-template-columns: 1.8rem 1fr;
   }
   .list-type4 > li::before {
-    display: inline-block;
-    align-self: start;
-    translate: 0 0;
-    content: "※";
-  }
-  .list-type5 > li {
-    display: grid;
-    grid-template-columns: min-content 1fr;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .list-type5 > li::before {
-    display: inline-block;
-    align-self: start;
-    translate: 0 0.2rem;
-    content: "*";
-  }
-  .list-type6 > li {
-    display: grid;
-    grid-template-columns: min-content 1fr;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .list-type6 > li::before {
-    display: inline-block;
-    align-self: start;
-    translate: 0 0.4rem;
+    translate: 0 0.5rem;
     content: "";
-    width: 1rem;
-    height: 1rem;
-    border-radius: 0;
+    width: 0.8rem;
+    height: 0.8rem;
     background: url(../images/ico_select.svg) no-repeat center / contain;
   }
 }
