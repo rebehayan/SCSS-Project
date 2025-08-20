@@ -1,0 +1,72 @@
+@use 'sass:map';
+@use './a11y-hidden' as *;
+
+@mixin switch($maps, $design) {
+  $map: map.get($maps, $design);
+
+  .#{$design} {
+    input {
+      @include a11y-hidden;
+
+      &:checked {
+        + label {
+          background-color: map.get($map, onBgColor);
+          justify-content: start;
+
+          &::before {
+            left: 100%;
+            translate: calc(-100% - 2px) -50%;
+            background-color: map.get($map, onColor);
+          }
+          &::after {
+            content: attr(data-on);
+          }
+        }
+      }
+      &:focus {
+        + label {
+          outline: 2px solid #000;
+        }
+      }
+    }
+    label {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      border-radius: map.get($map, rounded);
+      width: map.get($map, width);
+      height: map.get($map, height);
+      padding: map.get($map, padding) calc(map.get($map, padding) * 4);
+      border: 1px solid map.get($map, borderColor);
+      align-items: center;
+      justify-content: end;
+      transition: 0.4s;
+      background-color: map.get($map, offBgColor);
+      box-sizing: border-box;
+      &::before {
+        $left: map.get($map, padding);
+        $circle: calc(map.get($map, height) - ($left * 3));
+
+        content: '';
+        position: absolute;
+        left: map.get($map, padding);
+        top: 50%;
+        translate: 0 -50%;
+        width: $circle;
+        height: $circle;
+        border-radius: 100%;
+        background-color: map.get($map, offColor);
+        transition: 0.4s;
+      }
+      &::after {
+        content: attr(data-off);
+        text-align: center;
+        white-space: nowrap;
+        line-height: 1;
+        transition: 0.4s;
+        font-size: map.get($map, fontSize);
+        color: map.get($map, textColor);
+      }
+    }
+  }
+}

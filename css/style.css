@@ -28,18 +28,18 @@
     font-size: 1rem;
   }
   .text-xs {
-    font-size: 10px;
+    font-size: 18px;
     color: var(--gray700);
   }
   .text-base {
-    font-size: 14px;
+    font-size: 20px;
     color: var(--gray700);
   }
   .text-base.type1 {
     padding-top: 10px;
   }
   .text-primary {
-    color: var(--gray100);
+    color: var(--gray800);
   }
   .text-secondary {
     color: #00ff00;
@@ -618,7 +618,7 @@
     grid-template-columns: 1.6rem 1fr;
   }
   .list-type1 > li::before {
-    translate: 0 1.1rem;
+    translate: 0 1.4rem;
     content: "";
     width: 0.5rem;
     height: 0.5rem;
@@ -634,7 +634,7 @@
     grid-template-columns: 1.6rem 1fr;
   }
   .list-type2 > li::before {
-    translate: 0 -0.6rem;
+    translate: 0 -0.2rem;
     content: "-";
   }
   .list-type3 {
@@ -646,7 +646,7 @@
     grid-template-columns: 1.8rem 1fr;
   }
   .list-type3 > li::before {
-    translate: 0 -0.2rem;
+    translate: 0 0rem;
     content: "※";
   }
   .list-type4 {
@@ -658,7 +658,7 @@
     grid-template-columns: 1.8rem 1fr;
   }
   .list-type4 > li::before {
-    translate: 0 0.5rem;
+    translate: 0 0.9rem;
     content: "";
     width: 0.8rem;
     height: 0.8rem;
@@ -770,6 +770,143 @@
   }
   .snb details[open]::details-content {
     block-size: auto;
+  }
+}
+@layer molecules.chip {
+  .chip-type1 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .chip-type1 input {
+    overflow: hidden;
+    position: absolute;
+    border: 0;
+    width: 1px;
+    height: 1px;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+  .chip-type1 input:checked + label {
+    border-color: #000;
+    background-color: #000;
+    color: #fff;
+  }
+  .chip-type1 input:focus + label {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }
+  .chip-type1 label {
+    padding: 4px 10px;
+    border: 1px solid #000;
+    background-color: #fff;
+    border-radius: 100px;
+    font-size: 16px;
+    color: #000;
+  }
+}
+@layer molecules.switch {
+  .switch-type1 input {
+    overflow: hidden;
+    position: absolute;
+    border: 0;
+    width: 1px;
+    height: 1px;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+  .switch-type1 input:checked + label {
+    background-color: var(--primary);
+    justify-content: start;
+  }
+  .switch-type1 input:checked + label::before {
+    left: 100%;
+    translate: calc(-100% - 2px) -50%;
+    background-color: var(--white);
+  }
+  .switch-type1 input:checked + label::after {
+    content: attr(data-on);
+  }
+  .switch-type1 input:focus + label {
+    outline: 2px solid #000;
+  }
+  .switch-type1 label {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    border-radius: 20px;
+    width: 84px;
+    height: 30px;
+    padding: 4px calc(4px * 4);
+    border: 1px solid var(--gray400);
+    align-items: center;
+    justify-content: end;
+    transition: 0.4s;
+    background-color: var(--gray700);
+    box-sizing: border-box;
+  }
+  .switch-type1 label::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    translate: 0 -50%;
+    width: calc(30px - 4px * 3);
+    height: calc(30px - 4px * 3);
+    border-radius: 100%;
+    background-color: var(--gray300);
+    transition: 0.4s;
+  }
+  .switch-type1 label::after {
+    content: attr(data-off);
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1;
+    transition: 0.4s;
+    font-size: 14px;
+    color: var(--white);
+  }
+}
+@layer molecules.date {
+  .date-type1 {
+    position: relative;
+    padding-inline: 10px 10px;
+    border: 1px solid var(--gray400);
+    height: 40px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  .date-type1::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset: 0;
+    background: none;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .date-type1::after {
+    content: attr(data-placeholder);
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    translate: 0 -50%;
+  }
+  .date-type1::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url(../images/ico_select.svg) no-repeat right 10px center / 15px auto var(--white);
+  }
+  .date-type1:valid::after {
+    display: none;
+  }
+  .date-type1:valid::before {
+    background-color: transparent;
+  }
+  .date-type1.sm {
+    height: 32px;
+    font-size: 14px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 6px;
   }
 }
 
