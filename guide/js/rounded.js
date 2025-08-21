@@ -20,18 +20,23 @@ const buildRoundList = () => {
     probe.classList.add(`rounded-${i}`);
 
     const r = getComputedStyle(probe).borderTopLeftRadius;
-    const px = parseFloat(r);
-    if (!px) continue;
-
-    const li = document.createElement('li');
-    li.classList.add(`rounded-${i}`);
-    li.textContent = `.rounded-${i}`;
-    frag.appendChild(li);
+    if (parseFloat(r) > 0) {
+      const li = document.createElement('li');
+      li.className = `rounded-${i}`;
+      li.textContent = `.rounded-${i}`;
+      frag.appendChild(li);
+    }
   }
 
+  probe.className = '';
+  probe.classList.add('rounded-full');
+  const liFull = document.createElement('li');
+  liFull.className = 'rounded-full';
+  liFull.textContent = '.rounded-full';
+  frag.appendChild(liFull);
+
   ul.appendChild(frag);
-  ul.insertAdjacentElement('beforeend', '<li class="rounded-full">.rounded-full</li>');
-  document.body.removeChild(probe);
+  probe.remove();
 };
 
 buildRoundList();

@@ -875,7 +875,7 @@
     border-radius: 0.6rem;
   }
   .rounded-full {
-    border-radius: calc(infinity * rem);
+    border-radius: calc(infinity * 1rem);
   }
 }
 @layer print {
