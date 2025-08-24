@@ -1,29 +1,26 @@
 @use 'sass:meta';
-@use 'sass:math';
 
-@mixin radius($numbers) {
+@mixin radius($numbers, $unit: rem) {
   @if meta.type-of($numbers) != list {
-    @error "#{$numbers }는 리스트형 데이터여야 합니다.";
+    @error "#{$numbers}는 list형 데이터가 아닙니다.";
   }
-  @each $number in $numbers {
-    @if math.unit($number) != rem {
-      @error "#{$number}는 rem단위어야 합니다.";
-    }
-  }
+  $initialCount: 1;
 
-  @each $number in $numbers {
-    .rounded- {
-      &#{$number} {
-        border-radius: #{$number};
-      }
+  @each $item in $numbers {
+    $className: $item;
+    $number: $item;
+
+    @if $unit == rem {
+      $number: calc($item / 10);
+    }
+    @if $unit == vw {
+      $number: calc(($item / 1920) * 100vw);
+    }
+    .rounded#{$className} {
+      border-radius: #{$number}#{$unit};
     }
   }
   .rounded-full {
-    border-radius: calc(infinity * 1rem);
+    border-radius: calc(infinity * #{$initialCount}#{$unit});
   }
 }
-
-/* -------------------------------------------------------------------------- */
-/*                                   Radius                                   */
-/* -------------------------------------------------------------------------- */
-@include radius((2rem, 4rem, 5rem, 6rem));

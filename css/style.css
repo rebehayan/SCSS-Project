@@ -1,28 +1,5 @@
 @charset "UTF-8";
 @layer reset, print, atom, molecules, organisms, template, page, utillity;
-/* -------------------------------------------------------------------------- */
-/*                                   Radius                                   */
-/* -------------------------------------------------------------------------- */
-.rounded-2rem {
-  border-radius: 2rem;
-}
-
-.rounded-4rem {
-  border-radius: 4rem;
-}
-
-.rounded-5rem {
-  border-radius: 5rem;
-}
-
-.rounded-6rem {
-  border-radius: 6rem;
-}
-
-.rounded-full {
-  border-radius: calc(infinity * 1rem);
-}
-
 @layer atom.typography {
   html {
     font-size: 62.5%;
@@ -320,6 +297,23 @@
     .print {
       display: none;
     }
+  }
+}
+@layer utillity.radius {
+  .rounded20 {
+    border-radius: 2rem;
+  }
+  .rounded40 {
+    border-radius: 4rem;
+  }
+  .rounded50 {
+    border-radius: 5rem;
+  }
+  .rounded60 {
+    border-radius: 6rem;
+  }
+  .rounded-full {
+    border-radius: calc(infinity * 1rem);
   }
 }
 @layer molecules.badge {
@@ -791,6 +785,55 @@
   .snb details[open]::details-content {
     block-size: auto;
   }
+}
+.dialog {
+  inset: auto;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: var(--zindex, 1);
+  translate: -50% -50%;
+  border: 2px solid var(--gray900);
+}
+.dialog.backdrop::backdrop {
+  background-color: var(--black10);
+}
+.dialog.animation {
+  transition: 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) allow-discrete;
+  opacity: 0;
+  margin-top: 2rem;
+}
+.dialog.animation:popover-open {
+  opacity: 1;
+  margin-top: 0;
+}
+@starting-style {
+  .dialog.animation:popover-open {
+    margin-top: -2rem;
+    opacity: 0;
+  }
+}
+.dialog.animation.backdrop::backdrop {
+  transition: 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) allow-discrete;
+  opacity: 0;
+}
+.dialog.animation.backdrop:popover-open::backdrop {
+  opacity: 1;
+}
+@starting-style {
+  .dialog.animation.backdrop:popover-open::backdrop {
+    opacity: 0;
+  }
+}
+
+[popover].sm {
+  width: 32rem;
+}
+[popover].base {
+  width: 48rem;
+}
+[popover].md {
+  width: 57rem;
 }
 
 /*# sourceMappingURL=style.css.map */

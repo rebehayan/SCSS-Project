@@ -1,0 +1,61 @@
+@use 'sass:map';
+@use 'sass:list';
+@use './position' as *;
+
+@mixin dialog($map, $design, $backdrop: false, $animation: false) {
+  $data: map.get($map, $design);
+  $sizes: map.get($map, variants);
+  $positions: list.join(map.get($data, position), (), comma);
+
+  .#{$design} {
+    inset: auto;
+    @include position(f, $positions...);
+    border: map.get($data, border);
+    box-shadow: map.get($data, shadow);
+    @if $backdrop {
+      &.backdrop {
+        &::backdrop {
+          background-color: var(--black10);
+        }
+      }
+    }
+    @if $animation {
+      &.animation {
+        transition: 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) allow-discrete;
+        opacity: 0;
+        margin-top: 2rem;
+        &:popover-open {
+          opacity: 1;
+          margin-top: 0;
+          @starting-style {
+            margin-top: -2rem;
+            opacity: 0;
+          }
+        }
+        &.backdrop {
+          &::backdrop {
+            transition: 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) allow-discrete;
+            opacity: 0;
+          }
+          &:popover-open {
+            &::backdrop {
+              opacity: 1;
+              @starting-style {
+                opacity: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  [popover] {
+    @each $size, $variant in $sizes {
+      &.#{$size} {
+        @each $property, $value in $variant {
+          #{$property}: $value;
+        }
+      }
+    }
+  }
+}

@@ -70,10 +70,7 @@ $listStyle: (
 );
 
 @layer molecules.text-list {
-  @include listStyle($listStyle, type1);
-  @include listStyle($listStyle, type2);
-  @include listStyle($listStyle, type3);
-  @include listStyle($listStyle, type4);
-  @include listStyle($listStyle, type5);
-  @include listStyle($listStyle, type6);
+  @each $item, $values in $listStyle {
+    @include listStyle($listStyle, $item);
+  }
 }

@@ -32,9 +32,11 @@ $badgeColor: (
     justify-content: center;
     text-align: center;
 
-    @include badgeSize($badgeSize, small);
-    @include badgeSize($badgeSize, regular);
-    @include badgeColor($badgeColor, 'gray');
-    @include badgeColor($badgeColor, 'black');
+    @each $item, $value in $badgeSize {
+      @include badgeSize($badgeSize, $item);
+    }
+    @each $item, $value in $badgeColor {
+      @include badgeColor($badgeColor, $item);
+    }
   }
 }
