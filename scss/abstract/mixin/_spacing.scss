@@ -1,0 +1,90 @@
+@use 'sass:meta';
+@use './responsive' as *;
+@use '../function/unit' as *;
+
+@mixin spacing($numbers, $unit: rem) {
+  @if meta.type-of($numbers) != list {
+    @error "#{$numbers }는 리스트형 데이터여야 합니다.";
+  }
+
+  @each $number in $numbers {
+    .mt#{$number} {
+      margin-top: unit($number, $unit);
+    }
+    .ml#{$number} {
+      margin-left: unit($number, $unit);
+    }
+    .mr#{$number} {
+      margin-right: unit($number, $unit);
+    }
+    .mb#{$number} {
+      margin-bottom: unit($number, $unit);
+    }
+    .mx#{$number} {
+      margin-inline: unit($number, $unit);
+    }
+    .my#{$number} {
+      margin-block: unit($number, $unit);
+    }
+    .pt#{$number} {
+      padding-top: unit($number, $unit);
+    }
+    .pl#{$number} {
+      padding-left: unit($number, $unit);
+    }
+    .pr#{$number} {
+      padding-right: unit($number, $unit);
+    }
+    .pb#{$number} {
+      padding-bottom: unit($number, $unit);
+    }
+    .px#{$number} {
+      padding-inline: unit($number, $unit);
+    }
+    .py#{$number} {
+      padding-block: unit($number, $unit);
+    }
+
+    @include mobile {
+      .m-mt#{$number} {
+        margin-top: unit($number, $unit);
+      }
+      .m-ml#{$number} {
+        margin-left: unit($number, $unit);
+      }
+      .m-mr#{$number} {
+        margin-right: unit($number, $unit);
+      }
+      .m-mb#{$number} {
+        margin-bottom: unit($number, $unit);
+      }
+      .m-mx#{$number} {
+        margin-inline: unit($number, $unit);
+      }
+      .m-my#{$number} {
+        margin-block: unit($number, $unit);
+      }
+    }
+
+    @include tablet {
+      .t-mt#{$number} {
+        margin-top: unit($number, $unit);
+      }
+      .t-ml#{$number} {
+        margin-left: unit($number, $unit);
+      }
+      .t-mr#{$number} {
+        margin-right: unit($number, $unit);
+      }
+      .t-mb#{$number} {
+        margin-bottom: unit($number, $unit);
+      }
+      .t-mx#{$number} {
+        margin-inline: unit($number, $unit);
+      }
+      .t-my#{$number} {
+        margin-block: unit($number, $unit);
+      }
+    }
+  }
+}

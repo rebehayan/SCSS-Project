@@ -1,6 +1,7 @@
 @use '../abstract/' as *;
+@use 'sass:list';
 
-$text-field: (
+$textFields: (
   default: (
     class: '.text-field',
     base: (
@@ -35,5 +36,8 @@ $text-field: (
 );
 
 @layer atom.text-field {
-  @include text-field($text-field);
+  @each $textField in $textFields {
+    $textFieldName: list.nth($textField, 1);
+    @include text-field($textFields, $textFieldName);
+  }
 }

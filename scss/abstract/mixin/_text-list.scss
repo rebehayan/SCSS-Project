@@ -3,52 +3,70 @@
 @use 'sass:meta';
 @use './background' as *;
 
-@mixin listStyle($map, $type) {
-  $marker: map.get($map, $type, marker);
-  $markerType: map.get($marker, type);
+@mixin listStyle($map, $key) {
+  $data: map.get($map, $key);
 
-  @if not list.index((dot, star, dash, img, bill), map.get($marker, type)) {
-    @debug '#{map.get($marker, type)}은 dot, star, dash, img, bill만 허용합니다.';
+  @if not list.index((dot, '-', '*', '※', bg, image, img, background), map.get($data, type)) {
+    @error '#{map.get($data, type)}은 dot, -, *, ※, bg, image, img, background이어야 합니다.';
   }
 
-  .list-#{$type} {
+  @if list.index(('-', '*', '※'), map.get($data, type)) {
+    @if map.get($data, width) or
+      map.get($data, height) or
+      map.get($data, radius) or
+      map.get($data, bg)
+    {
+      @error "#{map.get($data, type)}은 width, height, radius, bg값이 필요하지 않습니다. map데이터를 삭제해주세요.";
+    }
+  }
+
+  .#{$key} {
     @content;
+    display: grid;
+    gap: map.get($data, gap);
     > li {
       display: grid;
-      grid-template-columns: min-content 1fr;
-      align-items: center;
-      gap: map.get($marker, gap);
-
+      grid-template-columns: map.get($data, pl) 1fr;
       &::before {
-        display: inline-block;
-        align-self: start;
-        translate: 0 map.get($marker, pt);
-
-        @if $markerType == 'star' {
-          content: '*';
-        } @else if $markerType == 'dash' {
-          content: '-';
-        } @else if $markerType == 'bill' {
-          content: '※';
-        } @else if $markerType == 'dot' {
+        translate: 0 map.get($data, pt);
+        @if map.get($data, type) == dot {
           content: '';
-          width: map.get($marker, width);
-          height: map.get($marker, height);
-          border-radius: if(
-            meta.type-of(map.get($marker, radius)) == number,
-            map.get($marker, radius),
-            calc(infinity * 1rem)
-          );
-          background-color: map.get($marker, bg);
-        } @else if $markerType == 'img' {
-          content: '';
-          width: map.get($marker, width);
-          height: map.get($marker, height);
-          border-radius: map.get($marker, radius);
-          @if meta.type-of(map.get($marker, bg)) != string {
-            @error "#{(map.get($marker, bg))}은 이미지명.확장자만 허용합니다.";
+          width: map.get($data, width);
+          height: map.get($data, height);
+          background-color: var(--gray700);
+          @if meta.type-of(map.get($data, radius)) == number {
+            border-radius: map.get($data, radius);
+          } @else if map.get($data, radius) == full {
+            border-radius: calc(infinity * 1rem);
+          } @else {
+            @error 'radius:#{map.get($data, radius)}는 숫자 또는 "full"이어야 합니다.';
           }
-          @include background(map.get($marker, bg), center, null, contain);
+        }
+        @if map.get($data, type) ==
+          '-' or
+          map.get($data, type) ==
+          '*' or
+          map.get($data, type) ==
+          '※'
+        {
+          content: map.get($data, type);
+        }
+        @if map.get($data, type) ==
+          img or
+          map.get($data, type) ==
+          bg or
+          map.get($data, type) ==
+          image or
+          map.get($data, type) ==
+          background
+        {
+          content: '';
+          width: map.get($data, width);
+          height: map.get($data, height);
+          @if meta.type-of(map.get($data, bg)) != string {
+            @error '#{map.get($data, bg)} "파일명.확장자"인 string이어야 합니다';
+          }
+          @include background(map.get($data, bg), center, null, contain);
         }
       }
     }

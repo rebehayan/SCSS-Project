@@ -1,4 +1,4 @@
-@mixin popover($id, $direction, $distance: 0) {
+@mixin anchor($id, $direction, $distance: 0) {
   [popovertarget='#{$id}'] {
     anchor-name: --#{$id};
   }
@@ -37,5 +37,3 @@
     }
   }
 }
-
-@include popover('popup', 'tc', 1rem);

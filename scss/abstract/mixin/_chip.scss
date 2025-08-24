@@ -1,0 +1,37 @@
+@use 'sass:map';
+@use './a11y-hidden' as *;
+
+@mixin chip($map, $design) {
+  $data: map.get($map, $design);
+
+  .#{$design} {
+    display: flex;
+    align-items: center;
+    gap: map.get($data, gap);
+
+    input {
+      @include a11y-hidden;
+      &:checked {
+        + label {
+          border-color: map.get($data, borderOnColor);
+          background-color: map.get($data, bgOnColor);
+          color: map.get($data, fontOnColor);
+        }
+      }
+      &:focus {
+        + label {
+          outline: map.get($data, focus, outline);
+          outline-offset: map.get($data, focus, outlineOffset);
+        }
+      }
+    }
+    label {
+      padding: map.get($data, py) map.get($data, px);
+      border: 1px solid map.get($data, borderOffColor);
+      background-color: map.get($data, bgOffColor);
+      border-radius: map.get($data, rounded);
+      font-size: map.get($data, fontSize);
+      color: map.get($data, fontOffColor);
+    }
+  }
+}

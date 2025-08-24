@@ -9,12 +9,19 @@ $FONT-FAMILY: $pretendard, $baseFont;
 
 @layer atom.typography {
   @include REM(true);
-  @include text(xs, fs 10px c var(--gray700));
-  @include text(base, fs 14px c var(--gray700)) {
+  @include text(xs, fs unit(18) c var(--gray700));
+  @include text(base, fs unit(20) c var(--gray700)) {
     &.type1 {
       padding-top: 10px;
     }
   }
+  @include textColors(
+    (
+      primary: var(--gray800),
+      secondary: #00ff00,
+      info: #0000ff,
+    )
+  );
 
   strong,
   b {

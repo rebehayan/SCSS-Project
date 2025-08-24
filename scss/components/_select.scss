@@ -1,6 +1,7 @@
 @use '../abstract/' as *;
+@use 'sass:list';
 
-$select: (
+$selects: (
   default: (
     class: '.select',
     base: (
@@ -31,5 +32,8 @@ $select: (
 );
 
 @layer molecules.select {
-  @include select($select);
+  @each $size in $selects {
+    $select: list.nth($size, 1);
+    @include select($selects, $select);
+  }
 }
