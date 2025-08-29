@@ -1,0 +1,58 @@
+@use 'sass:map';
+@use './background' as *;
+
+@mixin date($map, $design) {
+  $data: map.get($map, $design);
+  $variants: map.get($map, variants);
+
+  .#{$design} {
+    position: relative;
+    padding-inline: map.get($data, paddingLeft) map.get($data, paddingRight);
+    border: 1px solid map.get($data, borderColor);
+    height: map.get($data, height);
+    border-radius: map.get($data, rounded);
+    font-size: map.get($data, fontSize);
+
+    &::-webkit-calendar-picker-indicator {
+      position: absolute;
+      inset: 0;
+      background: none;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    &::after {
+      content: attr(data-placeholder);
+      position: absolute;
+      left: map.get($data, paddingLeft);
+      top: 50%;
+      translate: 0 -50%;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      @include background(
+        map.get($data, bg),
+        right map.get($data, paddingLeft) center,
+        var(--white),
+        map.get($data, bgSize)
+      );
+    }
+    &:valid {
+      &::after {
+        display: none;
+      }
+      &::before {
+        background-color: transparent;
+      }
+    }
+    @each $name, $variant in $variants {
+      &.#{$name} {
+        @each $prop, $value in $variant {
+          #{$prop}: $value;
+        }
+      }
+    }
+  }
+}

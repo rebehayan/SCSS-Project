@@ -862,17 +862,17 @@
   }
 }
 @layer utillity.radius {
-  .rounded-2 {
-    border-radius: 0.2rem;
-  }
   .rounded-4 {
     border-radius: 0.4rem;
   }
-  .rounded-5 {
-    border-radius: 0.5rem;
-  }
   .rounded-6 {
     border-radius: 0.6rem;
+  }
+  .rounded-8 {
+    border-radius: 0.8rem;
+  }
+  .rounded-10 {
+    border-radius: 1rem;
   }
   .rounded-full {
     border-radius: calc(infinity * 1rem);
@@ -899,23 +899,6 @@
     .print {
       display: none;
     }
-  }
-}
-@layer utillity.radius {
-  .rounded20 {
-    border-radius: 2rem;
-  }
-  .rounded40 {
-    border-radius: 4rem;
-  }
-  .rounded50 {
-    border-radius: 5rem;
-  }
-  .rounded60 {
-    border-radius: 6rem;
-  }
-  .rounded-full {
-    border-radius: calc(infinity * 1rem);
   }
 }
 @layer molecules.badge {
@@ -1362,7 +1345,6 @@
     block-size: auto;
   }
 }
-<<<<<<< HEAD
 .dialog {
   inset: auto;
   position: fixed;
@@ -1411,7 +1393,8 @@
 }
 [popover].md {
   width: 57rem;
-=======
+}
+
 @layer molecules.chip {
   .chip-type1 {
     display: flex;
@@ -1533,7 +1516,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: url(../images/ico_select.svg) no-repeat right 10px center / 15px auto var(--white);
+    background: url(../images/ico_date.svg) no-repeat right 10px center / 20px auto var(--white);
   }
   .date-type1:valid::after {
     display: none;
@@ -1595,7 +1578,6 @@
   inset: auto auto anchor(--popup top) anchor(--popup 50%);
   translate: -50%;
   translate: -50% -1rem;
->>>>>>> 019143bcfcc46bcdebf4d934d590bdacefa7a57b
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -2,7 +2,7 @@
 @use 'sass:math';
 @use '../function/unit' as *;
 
-@mixin radius($numbers, $unit) {
+@mixin radius($numbers, $unit: rem) {
   @if meta.type-of($numbers) != list {
     @error "#{$numbers }는 리스트형 데이터여야 합니다.";
   }
