@@ -1,7 +1,0 @@
-@use '../abstract/' as *;
-
-@layer molecules.pipe {
-  .pipe-type1 {
-    @include pipe(div, line, 1px, 10px, red, 10px);
-  }
-}
